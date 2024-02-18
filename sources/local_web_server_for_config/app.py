@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-from serveur_web_local.wifi_connexion import connect_to_wifi
+from local_web_server_for_config.wifi_connexion import connect_to_wifi
 app = Flask(__name__)
 
 @app.route('/', methods=["POST", "GET"])

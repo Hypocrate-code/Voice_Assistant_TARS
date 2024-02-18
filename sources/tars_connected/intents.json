@@ -1,0 +1,26 @@
+{
+  "intents": [
+    {
+      "tag":  "presentation",
+    "patterns":  [
+      "Hey",
+      "Bonjour",
+      "Salut",
+      "Coucou",
+      "Hello"
+    ],
+    "responses":  [
+      "Bonjour, je m'appelle TARS, je suis un assistant vocal développé par Hypocrate"
+    ],
+    "context_set":  ""
+    },
+    {
+      "tag": "print",
+      "patterns": [
+        "Peux-tu m'écrire quelque chose ?",
+        "Ecris-moi un truc"
+      ],
+      "responses": []
+    }
+  ]
+}
