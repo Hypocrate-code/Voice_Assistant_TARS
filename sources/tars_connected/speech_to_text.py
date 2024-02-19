@@ -12,17 +12,19 @@ class Tars:
         print("salut gros")
     def __init__(self):
         pass
-        self.recognizer = speech_recognition.Recognizer()
+        self.recognizer = speech_recognition.Recognizer()           # Initialiser Speech Recognition
         self.assistant = BasicAssistant("tars_connected/intents.json", method_mappings={ "print": self.print_un_truc})
         self.assistant.fit_model(epochs=50)
         self.assistant.save_model()
         while True:
         
-            with speech_recognition.Microphone() as mic:
+            with speech_recognition.Microphone() as mic:            # Avec le microphone par défaut
                 self.recognizer.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = self.recognizer.listen(mic)
-                text = self.recognizer.recognize_google(audio)
+                text = self.recognizer.recognize_google(audio, language="fr-FR")
                 text = text.lower()
+                if text != "":
+                    print("Heard something !")
                 if "hey tars" in text:
                     print("heyyyy tars")
                     audio = self.recognizer.listen(mic)
