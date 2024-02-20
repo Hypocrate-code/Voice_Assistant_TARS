@@ -1,4 +1,4 @@
-import sys
+# import sys
 
 
 import speech_recognition
@@ -9,15 +9,19 @@ import speech_recognition
 # import text_to_response
 
 def turn_in_red():
+    print("> On a appelé turn_in_red")
     return
     # turn_in_red() est une foncion provisoire, qui devra être remplacée par un ACTIVATEUR de témoin d'écoute
 def turn_in_black():
+    print("> On a appelé turn_in_black")
     return
     # turn_in_black() est une foncion provisoire, qui devra être remplacée par un DESACTIVATEUR de témoin d'écoute
 def say(text):
+    print("> On a appelé say")
     return
     # say(text) est une fonction provisoire, qui devra être remplacée par un text to speech
 def reponse_a_la_question(text):
+    print("> On a appelé reponse_a_la_question")
     return
     # reponse_a_la_question(text) est une fonction provisoire, qui devra être remplacée par un text to response
 
@@ -46,12 +50,14 @@ class Tars:
                     if "tarse " in text:
                         turn_in_red()
                         text = text.split("tarse ")[1]
+                        print(f"\nVotre question: {text}\n")
                         say(reponse_a_la_question(text))
                         turn_in_black()
                     
                     elif "torse " in text:
                         turn_in_red()
                         text = text.split("torse ")[1]
+                        print(f"\nVotre question: {text}\n")
                         say(reponse_a_la_question(text))
                         turn_in_black()
 
@@ -69,7 +75,7 @@ class Tars:
                                     turn_in_black()
                                     return
                                 else:
-                                    print("Le Lorem Ipsum est simplement du faux texte employé en imprimerie.")
+                                    print(f"\nVotre question: {text}\n")
                                     say(reponse_a_la_question(text))
                                     turn_in_black()
                                     break
