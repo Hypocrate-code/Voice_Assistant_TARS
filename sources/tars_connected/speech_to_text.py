@@ -14,10 +14,10 @@ def turn_in_red():
 def turn_in_black():
     return
     # turn_in_black() est une foncion provisoire, qui devra être remplacée par un DESACTIVATEUR de témoin d'écoute
-def say():
+def say(text):
     return
     # say(text) est une fonction provisoire, qui devra être remplacée par un text to speech
-def reponse_a_la_question():
+def reponse_a_la_question(text):
     return
     # reponse_a_la_question(text) est une fonction provisoire, qui devra être remplacée par un text to response
 
