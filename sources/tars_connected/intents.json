@@ -20,9 +20,7 @@
         "Peux-tu m'écrire quelque chose ?",
         "Ecris-moi un truc"
       ],
-      "responses": [
-        "Je ne peux pas faire cela pour le moment, mes développeurs n'ont pas encore bossé dessus."
-      ]
+      "responses": []
     }
   ]
 }
