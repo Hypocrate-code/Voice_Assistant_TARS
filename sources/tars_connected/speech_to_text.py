@@ -1,8 +1,12 @@
 import sys
 
-import speech_recognition
 
-from neuralintents.assistants import BasicAssistant
+import speech_recognition
+# from openai import OpenAI
+# import pyttsx3 as tts
+# from neuralintents.assistants import BasicAssistant
+
+# import text_to_response
 
 def turn_in_red():
     return
@@ -19,21 +23,23 @@ def reponse_a_la_question():
 
 class Tars:
     def __init__(self):
-        # pass
-        # self.assistant = BasicAssistant("intents.json", method_mappings={ "print": self.print_un_truc})
-        # self.assistant.fit_model(epochs=20)
+        # self.assistant = BasicAssistant("tars_connected/intents.json", method_mappings={ "print": self.print_un_truc})
+        # self.assistant.fit_model(epochs=50)
         # self.assistant.save_model()
 
+        self.mots_de_fin = ["couper", "arrêter", "stoppe", "stopper", "au revoir", "arrête"]
         self.recognizer = speech_recognition.Recognizer()           # Initialiser Speech Recognition
 
-        while True:
-            with speech_recognition.Microphone() as mic:            # Avec le microphone par défaut
+        with speech_recognition.Microphone() as mic:            # Avec le microphone par défaut
+            print("Parlez...")
+            while True:
                 try:
                     audio = self.recognizer.listen(mic)                 # Ecoute jusqu'à ce qu'il détecte un vide
                     text = self.recognizer.recognize_google(audio, language="fr-FR")
                     text = text.lower()
-                    print(f"J'ai entendu: {text}")
-                    if text == "couper":
+                    print(f"<{text}>")
+                
+                    if text in self.mots_de_fin:
                         print("Au revoir !")
                         return
                     
@@ -51,30 +57,29 @@ class Tars:
 
                     elif "tarse" in text or "torse" in text:
                         print("J'écoute ?...")
+                        turn_in_red()
                         while True:
                             try:
-                                self.recognizer.adjust_for_ambient_noise(mic, duration=1)       # Se calibre pendant 2 sec pour en ignorer le son ambiant
-                                audio = self.recognizer.listen(mic)                 # Ecoute jusqu'à ce qu'il détecte un vide
+                                audio = self.recognizer.listen(mic)           # Ecoute jusqu'à ce qu'il détecte un vide
                                 text = self.recognizer.recognize_google(audio, language="fr-FR")
                                 text = text.lower()
 
                                 if text in self.mots_de_fin:
                                     print("Au revoir !")
-                                    # self.assistant.stop()
-                                    # sys.exit()
-                                    break
+                                    turn_in_black()
+                                    return
                                 else:
-                                    response = self.assistant.request(text)
-                                    if response is not None:
-                                        print(response)
+                                    print("Le Lorem Ipsum est simplement du faux texte employé en imprimerie.")
+                                    say(reponse_a_la_question(text))
+                                    turn_in_black()
+                                    break
 
                             except speech_recognition.RequestError:
-                                print(">>>> Error: API was unreachable or unresponsive")                      # API was unreachable or unresponsive
-                                print(">>>> Veuillez répéter")
+                                print(">>>> Error: API was unreachable or unresponsive")          # API was unreachable or unresponsive
+                                print(">>>> Problème de connexion avec l'API")
 
                             except speech_recognition.UnknownValueError:
-                                print(">>>> Error: Unable to recognize speech, speech was unintelligible")              # speech was unintelligible
-                                print(">>>> Veuillez répéter")
+                                print(">>>> Pardon, veuillez répéter")
 
                 except speech_recognition.RequestError:
                     continue
@@ -87,3 +92,14 @@ class Tars:
 
 
 Bot = Tars()
+
+
+
+# client = OpenAI()
+#
+# audio_file = open("speech.mp3", "rb")
+# transcript = client.audio.transcriptions.create(
+#   model="whisper-1",
+#   file=audio_file,
+#   response_format="text"
+# )
