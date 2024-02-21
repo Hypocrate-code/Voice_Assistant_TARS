@@ -6,7 +6,7 @@ import speech_recognition
 # import pyttsx3 as tts
 # from neuralintents.assistants import BasicAssistant
 
-# import text_to_response
+from text_to_response import Tars_answering
 
 # def turn_in_red():
 #     print("> On a appelé turn_in_red")
@@ -53,7 +53,7 @@ class Tars:
                         if self.mots_activation[i]+" " in text:
                             text = text.split(f"{self.mots_activation[i]} ")[1]
                             print(f"\nVotre question: {text}\n")
-                            say(reponse_a_la_question(text))
+                            Tars_answering.answer(text)
                             break
 
 
@@ -75,7 +75,7 @@ class Tars:
                                     return
                                 else:
                                     print(f"\nVotre question: {text}\n")
-                                    say(reponse_a_la_question(text))
+                                    Tars_answering.answer(text)
                                     break
 
                             except speech_recognition.RequestError:
