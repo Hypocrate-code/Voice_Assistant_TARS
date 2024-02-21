@@ -16,7 +16,7 @@ class Tars_answering:
             stream = self.client.chat.completions.create(
                 model="gpt-3.5-turbo-0125",
                 messages=[
-                    {"role": "system", "content": "Tu es Tars, un assistant vocal. N'utilise pas plus de 260 caractères, tu relances parfois la conversation et retiens les questions précédentes."},
+                    {"role": "system", "content": "Tu es Tars, un assistant vocal. N'utilise pas plus de 260 caractères, écris les chiffres en toute lettre."},
                     {"role": "user", "content": requete}
                 ],
                 stream=True
@@ -27,4 +27,7 @@ class Tars_answering:
                     total+=chunk.choices[0].delta.content
             self.tars_vocal.say(total)
         except AuthenticationError:
-            api_key_invalid()
+            api_key_invalid("openai")
+
+
+

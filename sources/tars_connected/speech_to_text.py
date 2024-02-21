@@ -5,7 +5,7 @@ import speech_recognition
 # from openai import OpenAI
 # import pyttsx3 as tts
 # from neuralintents.assistants import BasicAssistant
-
+from text_to_response import Tars_answering
 # import text_to_response
 
 def turn_in_red():
@@ -31,12 +31,13 @@ class Tars:
         # self.assistant.fit_model(epochs=50)
         # self.assistant.save_model()
 
+        self.tars = Tars_answering()
         self.mots_de_fin = ["couper", "arrêter", "stoppe", "stopper", "au revoir", "arrête"]
         self.recognizer = speech_recognition.Recognizer()           # Initialiser Speech Recognition
 
         with speech_recognition.Microphone() as mic:            # Avec le microphone par défaut
-            print("Parlez...")
             while True:
+                print("Parlez...")
                 try:
                     audio = self.recognizer.listen(mic)                 # Ecoute jusqu'à ce qu'il détecte un vide
                     text = self.recognizer.recognize_google(audio, language="fr-FR")
@@ -51,7 +52,7 @@ class Tars:
                         turn_in_red()
                         text = text.split("tarse ")[1]
                         print(f"\nVotre question: {text}\n")
-                        say(reponse_a_la_question(text))
+                        self.tars.answer(text)
                         turn_in_black()
                     
                     elif "torse " in text:
@@ -62,9 +63,9 @@ class Tars:
                         turn_in_black()
 
                     elif "tarse" in text or "torse" in text:
-                        print("J'écoute ?...")
                         turn_in_red()
                         while True:
+                            print("J'écoute ?...")
                             try:
                                 audio = self.recognizer.listen(mic)           # Ecoute jusqu'à ce qu'il détecte un vide
                                 text = self.recognizer.recognize_google(audio, language="fr-FR")
@@ -76,10 +77,10 @@ class Tars:
                                     return
                                 else:
                                     print(f"\nVotre question: {text}\n")
+                                    self.tars.answer(text)
                                     say(reponse_a_la_question(text))
                                     turn_in_black()
                                     break
-
                             except speech_recognition.RequestError:
                                 print(">>>> Error: API was unreachable or unresponsive")          # API was unreachable or unresponsive
                                 print(">>>> Problème de connexion avec l'API")

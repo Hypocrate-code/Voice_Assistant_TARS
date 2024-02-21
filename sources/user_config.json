@@ -1,3 +1,4 @@
 {
-  "problem_or_start_up": false
+  "problem_or_start_up": false,
+  "voice" : "elevenlabs"
 }
