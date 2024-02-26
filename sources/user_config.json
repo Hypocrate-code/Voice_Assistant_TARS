@@ -1,4 +1,4 @@
 {
-  "problem_or_start_up": false,
-  "voice" : "elevenlabs"
+  "problem_or_start_up": true,
+  "voice" : "native"
 }

@@ -8,6 +8,6 @@ if __name__ == '__main__':
         user_config_read = user_config_file.read()
         user_config = json.loads(user_config_read)
     if user_config["problem_or_start_up"]:
-        app.run(debug=True, port="5000")
+        app.run(debug=True, port="5000", host="0.0.0.0")
     else:
         Tars()

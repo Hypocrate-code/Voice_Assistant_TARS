@@ -9,11 +9,12 @@ def index():
         code = request.form["password"]
         if  nom == "" or code == "":
             print("veuillez complétez tous les champs")
+        elif len(code) < 8:
+            print("Le mot de passe n'est pas bon, il n'est pas assez long.")
         else:
             print(nom)
             print(code)
             connect_to_wifi(nom, code)
         return redirect("/")
     else:
-        return render_template('base.html')
-
+        return render_template('config.html')

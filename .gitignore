@@ -1,1 +1,3 @@
-venv/
+sources/venv/
+sources/python_interpreter/
+sources/tars_connected/__pycache__

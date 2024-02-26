@@ -1,9 +1,9 @@
-from utils import get_api_key
+from tars_connected.utils import get_api_key
 
 from openai import OpenAI, AuthenticationError
-from errors_response import api_key_invalid
+from tars_connected.errors_response import api_key_invalid
 
-from response_to_speech import Tars_vocal
+from tars_connected.response_to_speech import Tars_vocal
 
 
 
