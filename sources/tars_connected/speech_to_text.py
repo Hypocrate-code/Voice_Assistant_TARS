@@ -1,7 +1,7 @@
 # import sys
 
 
-import speech_recognition
+# import speech_recognition
 # from openai import OpenAI
 # import pyttsx3 as tts
 # from neuralintents.assistants import BasicAssistant
@@ -53,7 +53,7 @@ class Tars:
                         if self.mots_activation[i]+" " in text:
                             text = text.split(f"{self.mots_activation[i]} ")[1]
                             print(f"\nVotre question: {text}\n")
-                            Tars_answering.answer(text)
+                            # Tars_answering.answer(text)
                             break
 
 
@@ -75,7 +75,7 @@ class Tars:
                                     return
                                 else:
                                     print(f"\nVotre question: {text}\n")
-                                    Tars_answering.answer(text)
+                                    # Tars_answering.answer(text)
                                     break
 
                             except speech_recognition.RequestError:
