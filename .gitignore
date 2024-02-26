@@ -1,3 +1,4 @@
 sources/venv/
 sources/python_interpreter/
 sources/tars_connected/__pycache__
+sources/local_web_server_for_config/__pycache__
