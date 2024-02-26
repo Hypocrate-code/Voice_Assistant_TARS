@@ -1,0 +1,96 @@
+/* Reset CSS et déclarations des variables */
+
+*, *::before, *::after {
+    font-family: 'Allerta Stencil';
+    border: none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+:root {
+    --dark-grey: #07060b;
+    --mid-grey: #18181e;
+    --light-grey: #22242b;
+    --funky-color: mediumslateblue;
+    --border-radius: 0.75rem;
+    --light-text-color: #f0f0f0da;
+    --mid-text-color: #f0f0f0b4;
+    --dark-text-color: #f0f0f0b4;
+}
+
+
+body {
+    background-color: var(--light-grey);
+}
+form {
+    background-color: var(--mid-grey);
+    width: 80rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 4rem 3.5rem;
+    border-radius: calc(var(--border-radius) * 2);
+    margin: 28vh auto 0 auto;
+}
+h1 {
+    color: var(--light-text-color);
+    font-size: 4.4rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+.info-container {
+    width: 60em;
+    position: relative;
+}
+.input-text {
+    background-color: var(--dark-grey);
+    color: var(--dark-text-color);
+    font-size: 3em;
+    padding: 0.55em;
+    border-radius: var(--border-radius);
+    width: 100%;
+}
+p {
+    color: var(--mid-text-color);
+    font-size: 3.3em;
+    margin-bottom: 0.5em;
+    margin-left: 0.2em;
+}
+input:focus {
+    outline: 0.05em solid var(--light-text-color);
+}
+
+img {
+    position: absolute;
+    right: 2em;
+    bottom: 1.4em;
+    background-color: transparent;
+    cursor: pointer;
+    width: 4.5em;
+}
+.btn {
+    height: 8rem;
+    border-radius: var(--border-radius);
+    background-color: var(--funky-color);
+    margin-top: 3rem;
+    cursor: pointer;
+    font-size: 3.8rem;
+    color: var(--light-text-color);
+}
+
+@media screen and (min-width: 300px){
+    html {
+        font-size: 1.05vw;
+    }
+    .info-container {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (min-width: 500px){
+    html {
+        font-size: 35%;
+    }
+    .info-container {
+        font-size: 1rem;
+    }
+}

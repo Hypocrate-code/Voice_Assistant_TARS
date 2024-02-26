@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-
+    <title>Tars - Setup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <form action="/" method="POST">
-        <input name="name" type="text">
-        <input name="password" type="password">
-        <input type="submit">
+    <form action="#", method="POST">
+        <h1>Configuration réseau de Tars</h1>
+        <div class="info-container">
+            <p>Nom du réseau internet :</p>
+            <input type="text" name="ESSID" class="input-text" placeholder="ex: Livebox-7C44">
+        </div>
+        <div class="info-container">
+            <p>Mot de passe du réseau internet :</p>
+            <input type="password" id="pass" name="password" class="input-text">
+            <img src="{{ url_for('static', filename='eye-see.svg') }}">
+        </div>
+        <input type="submit" class="btn" value="Connecter">
     </form>
 </body>
 </html>
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
