@@ -1,11 +1,7 @@
-# import sys
 
-# from openai import OpenAI
-# import pyttsx3 as tts
-# from neuralintents.assistants import BasicAssistant
 import speech_recognition
-from tars_connected.text_to_response import Tars_answering
-# import text_to_response
+
+from text_to_response import Tars_answering
 
 # def turn_in_red():
 #     print("> On a appelé turn_in_red")
@@ -42,22 +38,15 @@ class Tars:
                     text = self.recognizer.recognize_google(audio, language="fr-FR")
                     print(text)
                     text = text.lower()
-                    print(f"<{text}>")
                     mots_du_texte_unique = set(text.split(" "))
                     print(mots_du_texte_unique)
                     if mots_du_texte_unique & self.mots_de_fin != set():
-                        print("Au revoir !")
-                        return
-                    else:
-                        mots_en_commun = list(self.mots_activation & mots_du_texte_unique)
-                        print(mots_en_commun)
-                        if mots_en_commun == []:
-                            break
-                        else:
-                            question = text.split(f"{mots_en_commun[0]}")[1]
-                            print(f"\nVotre question: {text}\n")
-                            self.tars.answer(question)
-                            continue
+                        for i in range(len(self.mots_activation)):
+                            if self.mots_activation[i]+" " in text:
+                                text = text.split(f"{self.mots_activation[i]} ")[1]
+                                print(f"\nVotre question: {text}\n")
+                                # Tars_answering.answer(text)
+                                break
                     #
                     # elif self.mots_activation[0] in text or self.mots_activation[1] in text or self.mots_activation[2] in text or self.mots_activation[3] in text:
                     #     while True:
@@ -91,9 +80,6 @@ class Tars:
 
 
 
-
-
-Bot = Tars()
 
 
 
