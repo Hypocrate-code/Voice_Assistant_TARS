@@ -7,7 +7,7 @@ def get_api_key(origin):
         return api_keys_file[origin]
 
 def get_voice_ai():
-    with open("../user_config.json") as file:
+    with open("user_config.json") as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file["voice"]

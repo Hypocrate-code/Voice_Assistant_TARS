@@ -1,7 +1,7 @@
 
 import speech_recognition
 
-from text_to_response import Tars_answering
+from tars_connected.text_to_response import Tars_answering
 
 # def turn_in_red():
 #     print("> On a appelé turn_in_red")

@@ -63,7 +63,7 @@ input:focus {
 img {
     position: absolute;
     right: 2em;
-    bottom: 1.4em;
+    top: 7.3em;
     background-color: transparent;
     cursor: pointer;
     width: 4.5em;
@@ -76,6 +76,80 @@ img {
     cursor: pointer;
     font-size: 3.8rem;
     color: var(--light-text-color);
+}
+
+.loader {
+    font-size: 1rem;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 50em;
+}
+.connexion-text {
+    display: flex;
+    justify-content: center;
+    gap: .5em;
+}
+.connexion-text p, #dot {
+    font-size: 6em;
+    font-weight: bold;
+    text-align: center;
+    color: var(--light-text-color);
+}
+#dot {
+    animation: dot 1s ease-in-out infinite forwards;
+}
+#dot:nth-of-type(2) {
+    animation-delay: .3s;
+}
+#dot:nth-of-type(3) {
+    animation-delay: .5s;
+}
+#arc {
+    animation: fade-third 1.5s ease-in-out infinite forwards;
+}
+#arc:nth-child(2) {
+    animation-name: fade;
+}
+#arc:nth-child(3) {
+    animation-name: fade-second;
+}
+
+@keyframes dot {
+    50% {
+        color: transparent;
+    }
+}
+
+@keyframes fade {
+    10% {
+        fill: transparent;
+    }
+    20% {
+        fill: var(--light-text-color);
+    }
+
+}
+@keyframes fade-second {
+    20% {
+        fill: transparent;
+    }
+    30% {
+        fill: var(--light-text-color);
+    }
+
+}
+@keyframes fade-third {
+    30% {
+        fill: transparent;
+    }
+    40% {
+        fill: var(--light-text-color);
+    }
+
 }
 
 @media screen and (min-width: 300px){
@@ -93,4 +167,20 @@ img {
     .info-container {
         font-size: 1rem;
     }
+}
+
+/* In case of error */
+
+.error-message {
+    background-color: var(--light-grey);
+    font-size: 2.5em;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    padding: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    border: 0.1em solid red;
+    border-top: none;
+    width: max-content;
+    margin-left: var(--border-radius);
 }
