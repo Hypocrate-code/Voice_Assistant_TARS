@@ -1,25 +1,27 @@
 import sys
-
 import pyttsx3 as tts
-from elevenlabs import generate, play, voices, stream
-from tars_connected.utils import get_voice_ai, get_api_key
+from elevenlabs import generate, play, stream
+from tars_connected.utils import get_voice, get_api_key
 class Tars_vocal:
     def __init__(self):
         self.setup()
     def setup(self):
-        self.voice = get_voice_ai()
-        if self.voice == "native":
+        self.voice = get_voice()
+        if self.voice['origin'] == "native":
             self.speaker = tts.init()
             self.speaker.setProperty("rate", 200)
     def say(self, something):
-        if self.voice == "native":
+        if self.voice['origin'] == "native":
+            if self.speaker._inLoop:
+                self.speaker.endLoop()
             self.speaker.say(something)
             self.speaker.runAndWait()
-        elif self.voice == "elevenlabs":
-            audio = generate(
+        elif self.voice['origin'] == "elevenlabs":
+            audio = generate (
                 text=something,
                 model="eleven_multilingual_v1",
-                voice="Giovanni"
+                voice=self.voice["spec"],
+                api_key=get_api_key("elevenlabs")
             )
             play(audio)
 

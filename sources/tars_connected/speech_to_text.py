@@ -1,4 +1,3 @@
-
 import speech_recognition
 
 from tars_connected.text_to_response import Tars_answering
@@ -17,7 +16,7 @@ def reponse_a_la_question(text):
     return
     # reponse_a_la_question(text) est une fonction provisoire, qui devra être remplacée par un text to response
 
-class Tars:
+class Tars_recognizer:
     def __init__(self):
         # self.assistant = BasicAssistant("tars_connected/intents.json", method_mappings={ "print": self.print_un_truc})
         # self.assistant.fit_model(epochs=50)

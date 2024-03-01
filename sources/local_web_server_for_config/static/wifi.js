@@ -3,7 +3,7 @@ password_input = document.querySelector('#pass')
 
 submitButton = document.querySelector('input[type="submit"]')
 form = document.querySelector('form')
-loader = document.querySelector('.loader')
+loader = document.querySelector('.wifi-loader')
 
 
 hide_password_btn.addEventListener('click', ()=> {

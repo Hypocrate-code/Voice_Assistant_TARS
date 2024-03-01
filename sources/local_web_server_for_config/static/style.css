@@ -1,4 +1,5 @@
-/* Reset CSS et déclarations des variables */
+/* FR : Reset CSS et déclarations des variables universelles */
+/* EN : Reset CSS and variables declarations */
 
 *, *::before, *::after {
     font-family: 'Allerta Stencil';
@@ -6,9 +7,11 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    -webkit-tap-highlight-color: rgba(124, 104, 238, 0.11);
 }
 :root {
-    --dark-grey: #07060b;
+    --dark-grey: #08070c;
+    --mid-dark-grey: #0E0E13;
     --mid-grey: #18181e;
     --light-grey: #22242b;
     --funky-color: mediumslateblue;
@@ -16,29 +19,300 @@
     --light-text-color: #f0f0f0da;
     --mid-text-color: #f0f0f0b4;
     --dark-text-color: #f0f0f0b4;
+    --body-padding: 5rem;
 }
-
 
 body {
     background-color: var(--light-grey);
+    padding: var(--body-padding) calc(var(--body-padding) * 2);
 }
+
+
+h1 {
+    color: var(--light-text-color);
+    font-size: 4.4rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    grid-area: 1 / 1 / 2 / 3;
+}
+h1.config {
+    font-size: 5.5rem;
+    margin-bottom: 1.5rem;
+    height: 3.5rem;
+}
+
+/* FR : Éléments de la page options et config générale */
+/* EN : Options and general config page elements */
+
+.onglet-container {
+    display: grid;
+    grid-template-columns: repeat(2, calc(50% - 2.75rem));
+    grid-template-rows: repeat(5, max-content);
+    gap: 3.5rem;
+    width: 100%;
+}
+.onglet {
+    height: 100%;
+    padding: 5.5rem;
+    padding-top: 4rem;
+    background-color: var(--mid-grey);
+    border-radius: calc(var(--border-radius) * 3);
+    font-size: 4.5rem;
+}
+.caractère {
+    grid-area: 3/1/5/2;
+}
+.périphériques {
+    grid-area: 3/2/4/3;
+}
+.wifi {
+    grid-area: 5/1/6/2;
+}
+.voix {
+    grid-area: 4/2/6/3;
+}
+.onglet h2 {
+    font-size: 1em;
+    color: var(--light-text-color);
+    width: max-content;
+    font-weight: normal;
+    margin-bottom: .5em;
+}
+.onglet h2::after {
+    content: "";
+    display: block;
+    width: 75%;
+    height: 0.1em;
+    background-color: var(--mid-text-color);
+    border-radius: var(--border-radius);
+    transform: translateY(.15em) scaleX(0);
+    transform-origin: left;
+    animation: scaleX .5s cubic-bezier(.33,.49,.4,1.26) 1 forwards;
+}
+.onglet:nth-child(3) h2::after {
+    animation-delay: .1s;
+}
+.onglet:nth-child(4) h2::after {
+    animation-delay: .3s;
+}
+.onglet:nth-child(5) h2::after {
+    animation-delay: .42s;
+}
+.onglet>p {
+    color: var(--mid-text-color);
+    font-size: .75em;
+}
+.slider-container {
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0 .5em;
+    margin-top: .5em;
+    margin-left: .5em;
+    font-size: 5rem;
+}
+.slider-container p {
+    font-size: .65em;
+    color: var(--dark-text-color);
+    grid-area: 1 / 2/ 2 / 3;
+}
+input[type="range"] {
+    grid-area: 2 / 2 / 3 / 3;
+    /* width: 100%; */
+    margin-top: 1rem;
+    cursor: pointer;
+    height: 1em;
+    border-radius: 1.2em 0 0 1.2em;
+    background-color: inherit;
+    /* -webkit-appearance: none; */
+    accent-color: #c0c0c0;
+}
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]::-moz-range-progress {
+    height: .6em;
+    border-radius: inherit;
+    background-color: var(--funky-color);
+}
+input[type="range"]::-moz-range-track {
+    background-color: var(--light-grey);
+    height: 2rem;
+    border-radius: 1em;
+}
+input[type="range"]::-moz-range-thumb {
+    appearance: none;
+    background-color: var(--mid-text-color);
+    border: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    transform: translateY(-.12em);
+}
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--mid-dark-grey);
+    height: 90%;
+    border-radius: 5rem;
+}
+#min {
+    grid-area: 2 / 1 / 3 / 2 !important;
+}
+#max {
+    grid-area: 2 / 3 / 3 / 4 !important;
+}
+
+.submit-slider-btn-container {
+    width: max-content;
+    margin-left: auto;
+    margin-top: 5rem;
+}
+.submit-slider-btn-container > button {
+    padding: .6em;
+    border-radius: var(--border-radius);
+    margin-inline: 1rem;
+    color: var(--mid-text-color);
+    background-color: var(--funky-color);
+    font-size: 2.8rem;
+    cursor: pointer;
+}
+#apply-personnality {
+    filter: brightness(70%);
+}
+.wifi > p {
+    margin-bottom: 2.5rem;
+}
+.redirect {
+    padding: 2.5em;
+    background-color: var(--mid-dark-grey);
+    font-size: 1rem;
+    border-radius: calc(var(--border-radius) * 2);
+
+}
+.chooser {
+    position: relative;
+    font-size: 1rem;
+}
+.chooser button {
+    background-color: transparent;
+    font-size: 3.5em;
+    color: var(--mid-text-color);
+    text-align: left;
+    cursor: pointer;
+}
+.chooser>button {
+    padding: 2.5rem;
+    width: 100%;
+    background-color: var(--mid-dark-grey);
+    border-radius: calc(var(--border-radius) * 2);
+}
+.redirect a {
+    font-size: 3.5em;
+    color: var(--mid-text-color);
+    text-decoration: none;
+    display: block;
+    width: auto;
+}
+.onglet>h3 {
+    color: var(--mid-text-color);
+    font-size: .75em;
+    margin-block: 2rem;
+    font-weight: normal;
+}
+.scrolling-menu {
+    position: absolute;
+    background-color: var(--mid-dark-grey);
+    display: none;
+    flex-direction: column;
+    gap: 2.3rem;
+    z-index: 1;
+    padding: 2.5em;
+    width: calc(100% - 5em);
+    margin-left: 2.5em;
+    border-radius: 0 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2);
+    border-top: .5em solid var(--dark-grey);
+    max-height: 37rem;
+    overflow-y: scroll;
+}
+.scrolling-menu > button::after {
+    content: "";
+    display: block;
+    background-color: var(--light-grey);
+    filter: brightness(120%);
+    width: auto;
+    height: .08em;
+    border-radius: 2rem;
+    transform: translateY(1.15rem);
+}
+.scrolling-menu > button:nth-last-child(1)::after {
+    display: none;
+}
+
+.voice-choose {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-block: 1.5rem;
+}
+input[type="radio"] {
+    appearance: none;
+    font: inherit;
+    width: 2.75rem;
+    height: 2.75rem;
+    transform: translateY(10%);
+    border: 0.5rem solid var(--light-text-color);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+input[type="radio"]:checked {
+    background-color: var(--funky-color);
+}
+input[type="radio"], label {
+    cursor: pointer;
+    color: var(--dark-text-color);
+    font-size: .8em;
+}
+.None {
+    display: none;
+}
+.voix .chooser, .voix .redirect {
+    margin-top: 3rem;
+}
+.voix .scrolling-menu {
+    transform: translateY(calc(-100% - 9rem));
+    border-radius: calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0 0;
+    border-bottom: .5em solid var(--dark-grey);
+    border-top: none;
+}
+.voix svg {
+    height: 1em;
+    transform: translate(30%, 10%);
+    display: none;
+
+}
+.voix svg path, .voix svg circle {
+    stroke: var(--funky-color);
+}
+.show-tick svg {
+    display: inline;
+}
+/* FR : éléments page wifi config */
+/* EN : wifi config page elements */
+
 form {
     background-color: var(--mid-grey);
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
     width: 80rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
     padding: 4rem 3.5rem;
     border-radius: calc(var(--border-radius) * 2);
-    margin: 28vh auto 0 auto;
 }
-h1 {
-    color: var(--light-text-color);
-    font-size: 4.4rem;
-    margin-bottom: 2.5rem;
-    text-align: center;
-}
-.info-container {
+.wifi-input-container {
     width: 60em;
     position: relative;
 }
@@ -50,7 +324,7 @@ h1 {
     border-radius: var(--border-radius);
     width: 100%;
 }
-p {
+form p {
     color: var(--mid-text-color);
     font-size: 3.3em;
     margin-bottom: 0.5em;
@@ -60,7 +334,7 @@ input:focus {
     outline: 0.05em solid var(--light-text-color);
 }
 
-img {
+.eye-input {
     position: absolute;
     right: 2em;
     top: 7.3em;
@@ -68,7 +342,7 @@ img {
     cursor: pointer;
     width: 4.5em;
 }
-.btn {
+input[type="submit"] {
     height: 8rem;
     border-radius: var(--border-radius);
     background-color: var(--funky-color);
@@ -78,7 +352,10 @@ img {
     color: var(--light-text-color);
 }
 
-.loader {
+/* FR : Chargement wifi */
+/* EN : Wifi loader */
+
+.wifi-loader {
     font-size: 1rem;
     position: absolute;
     display: none;
@@ -88,12 +365,12 @@ img {
     transform: translate(-50%, -50%);
     width: 50em;
 }
-.connexion-text {
+.loader-label {
     display: flex;
     justify-content: center;
     gap: .5em;
 }
-.connexion-text p, #dot {
+.loader-label p, #dot {
     font-size: 6em;
     font-weight: bold;
     text-align: center;
@@ -118,9 +395,37 @@ img {
     animation-name: fade-second;
 }
 
+
+/* FR : En cas d'erreur wifi */
+/* EN : In case of wifi error */
+
+
+.error-message {
+    background-color: var(--light-grey);
+    font-size: 2.5em;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    padding: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    border: 2px solid red;
+    border-top: none;
+    width: max-content;
+    margin-left: var(--border-radius);
+}
+
+/* FR : Partie animations */
+/* EN : Animation part */
+
+
 @keyframes dot {
     50% {
         color: transparent;
+    }
+}
+@keyframes scaleX {
+    to {
+        transform: translateY(.15em) scaleX(1);
     }
 }
 
@@ -152,11 +457,32 @@ img {
 
 }
 
-@media screen and (min-width: 300px){
-    html {
-        font-size: 1.05vw;
+/* FR: Partie responsive */
+/* EN : Responsive Part */
+
+@media screen and (max-width: 900px) {
+    body {
+        padding-inline: calc(var(--body-padding) * 1.5);
     }
-    .info-container {
+}
+@media screen and (max-width: 700px) {
+    .onglet-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .onglet {
+        height: max-content;
+    }
+    h1.config {
+        height: 5rem;
+    }
+}
+
+@media screen and (min-width: 0px){
+    html {
+        font-size: 1.1vw;
+    }
+    .wifi-input-container {
         font-size: 1.1rem;
     }
 }
@@ -164,23 +490,7 @@ img {
     html {
         font-size: 35%;
     }
-    .info-container {
+    .wifi-input-container {
         font-size: 1rem;
     }
-}
-
-/* In case of error */
-
-.error-message {
-    background-color: var(--light-grey);
-    font-size: 2.5em;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    padding: .5em;
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    border: 0.1em solid red;
-    border-top: none;
-    width: max-content;
-    margin-left: var(--border-radius);
 }
