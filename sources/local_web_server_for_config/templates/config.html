@@ -2,13 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tars - Configuration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
 <body>
-    <form action="/" method="POST">
-        <input name="name" type="text">
-        <input name="password" type="password">
-        <input type="submit">
-    </form>
+    <div class="onglet-container">
+        <h1 class="config">| Options de Tars |</h1>
+        
+        <!-- MESSAGE POP UP -->
+        <!-- <p style="color: #FFF;font-size: 3.5rem;grid-area: 2/1/3/3;text-align: center;">C'est bon !</p> -->
+        
+        <div class="onglet caractère">
+            <h2>Son caractère</h2>
+            <p>Ajustez ces paramètres pour modifier sa personnalité.</p>
+            <div class="slider-container">
+                <p id="humour">Humour : 50%</p>
+                <p id="min">0%</p><input type="range" value="{{ humor }}" min="0" max="100" name="humour"><p id="max">100%</p>
+            </div>
+            <div class="slider-container">
+                <p>Sarcasme : 50%</p>
+                <p id="min">0%</p><input type="range" value="{{ sarcasm }}" min="0" max="100" name="sarcasme"><p id="max">100%</p>
+            </div>
+            <div class="slider-container">
+                <p>Bavard : 50%</p>
+                <p id="min">0%</p><input type="range" value="{{ talkative }}" min="0" max="100" name="bavard "><p id="max">100%</p>
+            </div>
+            <div class="submit-slider-btn-container">
+                <button id="reset-personnality">Réinitialiser</button>
+                <button id="apply-personnality">Appliquer</button>
+            </div>
+        </div>
+        <div class="onglet périphériques">
+            <h2>Ses périphériques</h2>
+            <p>Choisissez les composants qui lui permettront de parler et d'écouter.</p>
+            <h3>Microphone :</h3>
+            <div class="chooser">
+                <button>Choisir un microphone</button>
+                <div class="scrolling-menu">
+                    <button>micro exemple</button>
+                    <button>micro exemple</button>
+                    <button>micro exemple</button>
+                    <button>micro exemple</button>
+                </div>
+            </div>
+            <h3>Haut-parleur :</h3>
+            <div class="chooser">
+                <button>Choisir un haut-parleur</button>
+                <div class="scrolling-menu">
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                    <button>haut parleur exemple</button>
+                </div>
+            </div>
+        </div>
+        <div class="onglet wifi">
+            <h2>Configurez son WiFi</h2>
+            <p>Connectez le en WiFi pour pouvoir débrancher son câble ethernet.</p>
+            <p>État : 
+                {% if wifi_status %}
+                    connecté
+                {% endif %}
+                {% if not(wifi_status) %}
+                    non connecté
+                {% endif %}
+            </p>
+            <div class="redirect">
+                <a href="/wifi">Établir une connexion ></a>
+            </div>
+        </div>
+        <div class="onglet voix">
+            <h2>Sa voix</h2>
+            <p>Déterminez la voix qu'il prendra pour vous répondre.</p>
+            <fieldset>
+                <div class="voice-choose">
+                    <input type="radio" checked="{{ voice=='native' }}" name="random" id="native" value="native">
+                    <label for="native">Voix robotique</label>
+                </div>
+                <div class="voice-choose">
+                    <input type="radio" checked="{{ voice=='elevenlabs' }}" name="random" id="elevenlabs" value="elevenlabs">
+                    <label for="elevenlabs">Voix anthropomorphe (via Elevenlabs)</label>
+                </div>
+                <div class="chooser {{ 'None' if voice=='elevenlabs' }}">
+                    <button>{{ voice_type if voice=='native' else 'Choisissez la voix de Tars' }}</button>
+                    <div class="scrolling-menu">
+                        {% for voice in list_of_native_voices %}
+                            {% if voice != voice_type %}
+                                <button>{{ voice }}<?xml version="1.0" encoding="utf-8"?><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29417 12.9577L10.5048 16.1681L17.6729 9" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="2"/></svg></button>
+                            {% else %}
+                                <button class="show-tick">{{ voice }}<?xml version="1.0" encoding="utf-8"?><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29417 12.9577L10.5048 16.1681L17.6729 9" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="2"/></svg></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if is_elevenlabs %}
+                    <div class="chooser {{ 'None' if voice=='native' }}">
+                        <button>{{ voice_type if voice=='elevenlabs' else 'Choisissez la voix de Tars' }}</button>
+                        <div class="scrolling-menu">
+                            {% for voice in list_of_elevenlabs_voices %}
+                                {% if voice.name != voice_type %}
+                                <button>{{ voice.name }}<?xml version="1.0" encoding="utf-8"?><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29417 12.9577L10.5048 16.1681L17.6729 9" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="2"/></svg></button>
+                                {% else %}
+                                    <button class="show-tick">{{ voice.name }}<?xml version="1.0" encoding="utf-8"?><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.29417 12.9577L10.5048 16.1681L17.6729 9" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="2"/></svg></button>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="redirect {{ 'None' if voice=='native' }}">
+                        <a href="/elevenlabs">Configurer Elevenlabs et choisir une voix ></a>
+                    </div>
+                {% endif %}
+                    
+
+
+            </fieldset>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='config.js') }}"></script>
 </body>
 </html>
+
+

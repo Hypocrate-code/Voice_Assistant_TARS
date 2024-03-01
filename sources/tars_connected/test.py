@@ -13,8 +13,6 @@ from contextlib import contextmanager
 
 import numpy as np
 from pyannote.core import Annotation, SlidingWindowFeature, SlidingWindow
-
-
 def concat(chunks, collar=0.05):
     """
     Concatenate predictions and audio
