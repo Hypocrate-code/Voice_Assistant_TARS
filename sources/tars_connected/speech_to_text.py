@@ -36,8 +36,8 @@ class Tars:
                 try:
                     audio = self.recognizer.listen(mic)           # Ecoute jusqu'à ce qu'il détecte un vide
                     text = self.recognizer.recognize_google(audio, language="fr-FR")
-                    print(text)
                     text = text.lower()
+                    print(text)
                     mots_du_texte_unique = set(text.split(" "))
                     print(mots_du_texte_unique)
                     if mots_du_texte_unique & self.mots_de_fin != set():
@@ -77,7 +77,6 @@ class Tars:
                     print(e)
                     print(">>>> Pardon, veuillez répéter")
                     continue
-
 
 
 
