@@ -1,38 +1,39 @@
 # Useful functions across the project
 
 import json
+import os.path
 
 
 def get_api_key(origin):
-    with open("user_config.json", encoding='utf-8') as file:
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file[origin]
 
 
 def get_voice():
-    with open("user_config.json", encoding='utf-8') as file:
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file["voice"]
 
 
 def get_voice_spec():
-    with open("user_config.json", encoding='utf-8') as file:
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file["tars voice spec"]
 
 
 def get_wifi_status():
-    with open("user_config.json", encoding='utf-8') as file:
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file["wifi_configured"]
 
 
 def get_prompt_system():
-    with open("user_config.json", encoding='utf-8') as file:
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
         return user_config_file["prompt_system"]
