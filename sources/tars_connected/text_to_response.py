@@ -33,5 +33,3 @@ class Tars_answering:
             self.tars_vocal.say(total)
         except AuthenticationError:
             api_key_invalid("openai")
-bot = Tars_answering()
-bot.answer("Qui es tu ?")
