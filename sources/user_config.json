@@ -1,5 +1,5 @@
 {
-  "openai": "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",
+  "openai": null,
   "elevenlabs": null,
   "voice": {
     "origin": "native",

@@ -1,7 +1,7 @@
 import sys
 import pyttsx3 as tts
 from elevenlabs import generate, play, stream
-from tars_connected.utils import get_voice, get_api_key
+from utils import get_voice, get_api_key
 class Tars_vocal:
     def __init__(self):
         self.setup()
