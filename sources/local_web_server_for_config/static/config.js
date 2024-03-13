@@ -28,7 +28,7 @@ voiceScrollingMenus.forEach(voiceScrollingMenu=> {
                 voiceScrollingMenu.parentElement.children[0].innerText = child.innerText
                 voiceOne = child
                 voice = {
-                    "origin": radioBtns.filter(radioBtn=>radioBtn.checked)[0].getAttribute("value"),
+                    "origin": radioBtns.filter(radioBtn=>radioBtn.checked == true)[0].getAttribute("value"),
                     "spec": child.innerText
                 }
                 fetch('/api/update_tars_voice', {

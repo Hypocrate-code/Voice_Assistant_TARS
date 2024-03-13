@@ -6,6 +6,7 @@ from tars_connected.speech_to_text import Tars_recognizer
 
 class Tars:
     def __init__(self):
+
         self.app = app
     def launch_tars_for_infos(self):
         self.tars_for_infos = Tars_vocal()
@@ -15,7 +16,7 @@ class Tars:
 
 if __name__ == '__main__':
     Tars = Tars()
-    thread_for_tars_infos = threading.Thread(target=Tars.launch_tars_for_infos)
+    # thread_for_tars_infos = threading.Thread(target=Tars.launch_tars_for_infos)
     Tars.app.run(host="0.0.0.0", debug=True, port=8000)
 
 

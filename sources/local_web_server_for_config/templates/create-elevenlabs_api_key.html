@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tars - Comment créer une clé API ElevenLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='infos-page.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>    
+    <div class="infos-container">
+        <h1>Pourquoi utiliser ElevenLabs ?</h1>
+        <p>ElevenLabs permet de générer une multitude de voix humanoïdes. Configurer son utilisation pourra améliorer votre expérience, mais avec une contrepartie : le temps de réponse sera légérement plus long, car Elevenlabs est un service sur le web (une API), contrairement aux voix robotiques préconfigurées de Tars.</p>
+        <h3>Vous êtes :</h3>
+        <ul>
+            <li><a href="#ordi">Sur ordinateur</a></li>
+            <li><a href="#tel">Sur téléphone ou tablette</a></li>
+        </ul>
+        <section>
+            <h2 id="ordi">Sur ordinateur</h2>
+            <div class="pc-section">
+                <h3>Se rendre sur la page web d'ElevenLabs</h3>
+                <p>C'est sur <a href="https://elevenlabs.io/">le site d'ElevenLabs</a> que vous pourrez obtenir votre clé d'API, une fois connecté. Cette dernière représentera votre compte lorsque Tars essaiera de se connecter à ce service. Cet identifiant est unique, confidentiel et nous ne le partageons pas.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-landing-page-connect.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>Se connecter ou créer un compte</h3>
+                <p>Votre compte ElevenLabs permettra à Tars de générer gratuitement 10000 caractères avec la voix que vous sélectionnerez. Une fois ce quota passé, vous devrez : soit payer pour continuer d'utiliser ce service, soit utiliser un autre compte lié à un numéro de téléphone différent.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-sign-up-page.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>Naviguer jusqu'à votre profil</h3>
+                <p>Cliquez sur l'icone de votre compte, puis sur "Profile + API key" dans le menu déroulant.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-landing-page-connected.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>Copier votre clé API</h3>
+                <p>Voici votre clé API pour ElevenLabs ; copiez-la et collez-la sur <a href="/elevenlabs">la page précédente</a> pour tester votre connexion.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-api-key.png') }}" alt="">
+            </div>
+        </section>
+        <section>
+            <h2 id="tel">Sur téléphone</h2>
+            <div class="tel-section">
+                <h3>Se rendre sur la page web d'ElevenLabs</h3>
+                <p>C'est sur <a href="https://elevenlabs.io/">le site d'ElevenLabs</a> que vous pourrez obtenir votre clé d'API, une fois connecté. Cette dernière représentera votre compte lorsque Tars essaiera de se connecter à ce service. Cet identifiant est unique, confidentiel et nous ne le partageons pas.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-landing-page-connect-tel.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>Se connecter ou créer un compte</h3>
+                <p>Votre compte ElevenLabs permettra à Tars de générer gratuitement 10000 caractères avec la voix que vous sélectionnerez. Une fois ce quota passé, vous devrez : soit payer pour continuer d'utiliser ce service, soit utiliser un autre compte lié à un numéro de téléphone différent.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-sign-up-page-tel.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>Naviguer jusqu'à votre profil</h3>
+                <p>Cliquez sur l'icone de votre compte, puis sur "Profile + API key" dans le menu déroulant.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-landing-page-connected-tel.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>Copier votre clé API</h3>
+                <p>Voici votre clé API pour ElevenLabs ; copiez-la et collez-la sur <a href="/elevenlabs">la page précédente</a> pour tester votre connexion.</p>
+                <img src="{{ url_for('static', filename='elevenlabs-api-key-tel.png') }}" alt="">
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
+
+<!-- <script src="{{ url_for('static', filename='elevenlabs.js') }}"></script> -->

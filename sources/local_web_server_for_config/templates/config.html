@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,9 @@
         <h1 class="config">| Options de Tars |</h1>
         
         <!-- MESSAGE POP UP -->
-        <!-- <p style="color: #FFF;font-size: 3.5rem;grid-area: 2/1/3/3;text-align: center;">C'est bon !</p> -->
+        {% if pop_up_message %}
+            <p style="color: #FFF;font-size: 3.5rem;grid-area: 2/1/3/3;text-align: center;">{{ pop_up_message }}</p>
+        {% endif %}
         
         <div class="onglet caractère">
             <h2>Son caractère</h2>

@@ -10,7 +10,7 @@ class Tars_vocal:
         if self.voice['origin'] == "native":
             self.speaker = tts.init()
             self.speaker.setProperty("rate", 200)
-    def say(self, something):
+    def say(self, something, test):
         if self.voice['origin'] == "native":
             if self.speaker._inLoop:
                 self.speaker.endLoop()
@@ -20,8 +20,7 @@ class Tars_vocal:
             audio = generate (
                 text=something,
                 model="eleven_multilingual_v1",
-                voice=self.voice["spec"],
-                api_key=get_api_key("elevenlabs")
+                voice=self.voice["spec"]
             )
             play(audio)
 

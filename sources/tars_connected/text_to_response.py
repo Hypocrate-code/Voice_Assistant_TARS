@@ -4,8 +4,7 @@ from openai import OpenAI, AuthenticationError
 from tars_connected.utils import get_prompt_system
 from tars_connected.errors_response import api_key_invalid
 from tars_connected.response_to_speech import Tars_vocal
-
-
+from threading import Thread
 class Tars_answering:
     def __init__(self):
         self.api_key = get_api_key("openai")
@@ -29,9 +28,17 @@ class Tars_answering:
             total = ""
             for chunk in stream:
                 if chunk.choices[0].delta.content is not None:
-                    total += chunk.choices[0].delta.content
-            self.tars_vocal.say(total)
+                    if "." in chunk.choices[0].delta.content:
+                        total = total + chunk.choices[0].delta.content.split(".")[0] + "."
+                        print(total)
+                        actual = Thread(target=self.tars_vocal.say, args=(total, total))
+                        actual.start()
+                        total = chunk.choices[0].delta.content.split(".")[1]
+                    else:
+                        total += chunk.choices[0].delta.content
+            if not(total == "" or total == " "):
+                actual = Thread(target=self.tars_vocal.say, args=(total, total))
+                actual.start()
+
         except AuthenticationError:
             api_key_invalid("openai")
-bot = Tars_answering()
-bot.answer("Qui es tu ?")
