@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tars - Comment créer une clé API OpenAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='infos-page.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>    
+    <div class="infos-container">
+        <h1>Description et utilité d'une clé API</h1>
+        <p>Une clé API fonctionne comme un identifiant lié à votre compte permettant d'utiliser un service en ligne. Tars utilise le modèle ChatGPT de l'entreprise OpenAI pour générer ses réponses, et son usage via du code nécessite votre authentification; c'est pourquoi nous avons besoin d'utiliser votre clé API, afin de l'indiquer. Pour des raisons de confidentialité, nous ne stockons votre clé api qu'exclusivement sur votre appareil.</p>
+        <h3>Vous êtes :</h3>
+        <ul>
+            <li><a href="#ordi">Sur ordinateur</a></li>
+            <li><a href="#tel">Sur téléphone ou tablette</a></li>
+        </ul>
+        <section>
+            <h2 id="ordi">Sur ordinateur</h2>
+            <div class="pc-section">
+                <h3>Se connecter à votre compte</h3>
+                <p>C'est sur <a href="https://platform.openai.com/api-keys">cette page</a> que vous pourrez obtenir votre clé d'API, une fois connecté.e.</p>
+                <img src="{{ url_for('static', filename='assets/openai/pc/connect.png') }}" alt="">
+                <img src="{{ url_for('static', filename='assets/openai/pc/login.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>Panneau de configuration des clés API</h3>
+                <p>Vous voici sur l'onglet de votre compte où vous pouvez générer la clé API dont Tars a besoin pour répondre à vos questions. Cliquez sur "+ Create new secret key".</p>
+                <img src="{{ url_for('static', filename='assets/openai/pc/api-keys-page.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>Créer la clé API</h3>
+                <p>Dans le panneau apparut, vous devez donner un nom à votre clé (ce dernier n'aura pas de particulière importance), et s'assurer que la partie "Permissions" soit sur All. Une fois fait, cliquez sur "Create secret key".</p>
+                <img src="{{ url_for('static', filename='assets/openai/pc/name-and-create-key.png') }}" alt="">
+            </div>
+            <div class="pc-section">
+                <h3>La copier et l'indiquer à Tars</h3>
+                <p>Il ne vous reste plus qu'à copier le code qui vous est donné (la fameuse clé API) et la coller dans le champ de texte de <a href="/openai">la page précédente</a> pour la tester.</p>
+                <img src="{{ url_for('static', filename='assets/openai/pc/copy-api-key.png') }}" alt="">
+            </div>
+        </section>
+        <section>
+            <h2 id="tel">Sur téléphone et tablette</h2>
+            <div class="tel-section">
+                <h3>Se connecter à votre compte</h3>
+                <p>C'est sur <a href="https://platform.openai.com/api-keys">cette page</a> que vous pourrez obtenir votre clé d'API, une fois connecté.e.</p>
+                <img src="{{ url_for('static', filename='assets/openai/tel/connect.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>Panneau de configuration des clés API</h3>
+                <p>Vous voici sur l'onglet de votre compte où vous pouvez générer la clé API dont Tars a besoin pour répondre à vos questions. Cliquez sur "+ Create new secret key".</p>
+                <img src="{{ url_for('static', filename='assets/openai/tel/api-keys-page.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>Créer la clé API</h3>
+                <p>Dans le panneau apparut, vous devez donner un nom à votre clé (ce dernier n'aura pas de particulière importance), et s'assurer que la partie "Permissions" soit sur All. Une fois fait, cliquez sur "Create secret key".</p>
+                <img src="{{ url_for('static', filename='assets/openai/tel/name-and-create-key.png') }}" alt="">
+            </div>
+            <div class="tel-section">
+                <h3>La copier et l'indiquer à Tars</h3>
+                <p>Il ne vous reste plus qu'à copier le code qui vous est donné (la fameuse clé API) et la coller dans le champ de texte de <a href="/openai">la page précédente</a> pour la tester.</p>
+                <img src="{{ url_for('static', filename='assets/openai/tel/copy-api-key.png') }}" alt="">
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
+
+<!-- <script src="{{ url_for('static', filename='elevenlabs.js') }}"></script> -->

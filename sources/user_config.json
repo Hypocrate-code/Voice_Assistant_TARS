@@ -1,17 +1,17 @@
 {
-  "openai": null,
-  "elevenlabs": null,
+  "openai": "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",
+  "elevenlabs": "22fa06e2c15e0c1e8c3e88a2141337d1",
   "voice": {
     "origin": "native",
     "spec": "Voix masculine"
   },
   "wifi_configured": false,
   "tars voice spec": {
-    "humor": 44,
-    "sarcasm": 40,
-    "lenght of response": 100
+    "humor": 35,
+    "sarcasm": 35,
+    "lenght of response": 35
   },
   "speaker": null,
   "mic": null,
-  "prompt_system": "Tu es Tars, un assistant vocal,à l'humour significatif et au sarcasme significatif.N'utilise pas plus de 650 caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
+  "prompt_system": "Tu es Tars, un assistant vocal,à l'humour assez présent et au sarcasme assez présent.N'utilise pas plus de 325 caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
 }

@@ -31,13 +31,13 @@ class Tars_answering:
                     if "." in chunk.choices[0].delta.content:
                         total = total + chunk.choices[0].delta.content.split(".")[0] + "."
                         print(total)
-                        actual = Thread(target=self.tars_vocal.say, args=(total, total))
+                        actual = Thread(target=self.tars_vocal.say, args=(total,))
                         actual.start()
                         total = chunk.choices[0].delta.content.split(".")[1]
                     else:
                         total += chunk.choices[0].delta.content
             if not(total == "" or total == " "):
-                actual = Thread(target=self.tars_vocal.say, args=(total, total))
+                actual = Thread(target=self.tars_vocal.say, args=(total,))
                 actual.start()
 
         except AuthenticationError:

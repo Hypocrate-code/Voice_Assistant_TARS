@@ -137,7 +137,11 @@ def wifi():
 
 @app.route("/comment_créer_une_clé_api_elevenlabs")
 def create_api_key_elevenlabs_page():
-    return render_template("create-elevenlabs_api_key.html")
+    return render_template("create-elevenlabs-api-key.html")\
+
+@app.route("/comment_créer_une_clé_api_openai")
+def create_api_key_openai_page():
+    return render_template("create-openai-api-key.html")
 
 # USEFUL FUNCTIONS AND API CALL
 

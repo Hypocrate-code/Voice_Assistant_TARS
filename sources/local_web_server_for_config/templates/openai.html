@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="#", method="POST">
-        <h1>Configurer <img class="openai-logo" alt="Logo d'OpenAI" src="{{ url_for('static', filename='openai-logo.svg') }}"> pour Tars</h1>
+        <h1>Configurer <img class="openai-logo" alt="Logo d'OpenAI" src="{{ url_for('static', filename='assets/openai/logo.svg') }}"> pour Tars</h1>
         <div>
             <p>Votre clé API :</p>
             <input type="text" name="api-key" class="input-text" placeholder="ex: sk-a1B2c34e5f6...">
@@ -19,7 +19,7 @@
                 <p class="error-message">{{ error_key }}</p>
             {% endif %}
         </div>
-        <a href="https://sabmadigital.com/fr/obtenir-une-cle-api-openai-en-5-etapes-faciles/">Comment l'obtenir ?</a>
+        <a href="/comment_créer_une_clé_api_openai">Comment l'obtenir ?</a>
         <input type="submit" class="btn" value="Valider">
     </form>
 </body>
