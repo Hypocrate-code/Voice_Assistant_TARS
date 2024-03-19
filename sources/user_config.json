@@ -1,9 +1,9 @@
 {
-  "openai": "placeholder",
-  "elevenlabs": null,
+  "openai": "",
+  "elevenlabs": "",
   "voice": {
-    "origin": "native",
-    "spec": "Voix masculine"
+    "origin": "elevenlabs",
+    "spec": "Fin"
   },
   "wifi_configured": false,
   "tars voice spec": {
