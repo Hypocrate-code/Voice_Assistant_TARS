@@ -3,6 +3,30 @@
 import json
 import os.path
 
+class File():
+    def __init__(self):
+        self.contenu = []
+    
+    def enfiler(self, objet):
+        self.contenu.append(objet)
+    
+    def defiler(self):
+        if len(self.contenu) > 0:
+            objet = self.contenu[0]
+            self.contenu = self.contenu[1:]
+            return objet
+        else:
+            raise("File déjà vide !")
+    
+    def est_vide(self):
+        return len(self.contenu) == 0
+    
+    def taille(self):
+        return len(self.contenu)
+    
+    def mettre_premiere_place(self, objet):
+        self.contenu.insert(0, objet)
+
 
 def get_api_key(origin):
     with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
