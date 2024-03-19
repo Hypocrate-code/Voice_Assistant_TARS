@@ -18,7 +18,7 @@
     --border-radius: 0.75rem;
     --light-text-color: #f0f0f0da;
     --mid-text-color: #f0f0f0b4;
-    --dark-text-color: #f0f0f0b4;
+    --dark-text-color: #f0f0f09a;
     --body-padding: 5rem;
 }
 
@@ -34,6 +34,21 @@ h1 {
     margin-bottom: 2.5rem;
     text-align: center;
     grid-area: 1 / 1 / 2 / 3;
+}
+form h1 {
+    font-weight: normal;
+}
+form a {
+    color: var(--funky-color);
+    filter: brightness(120%);
+    font-size: 2.9rem;
+    transform: translateY(20%);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: filter .2s;
+}
+form a:hover {
+    filter: brightness(140%);
 }
 h1.config {
     font-size: 5.5rem;
@@ -143,7 +158,7 @@ input[type="range"]::-moz-range-track {
 }
 input[type="range"]::-moz-range-thumb {
     appearance: none;
-    background-color: var(--mid-text-color);
+    background-color: whitesmoke;
     border: none;
 }
 input[type="range"]::-webkit-slider-thumb {
@@ -305,12 +320,15 @@ form {
     left: 50%;
     top: 48%;
     transform: translate(-50%, -50%);
-    width: 80rem;
+    width: max-content;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1rem;
     padding: 4rem 3.5rem;
     border-radius: calc(var(--border-radius) * 2);
+}
+.wifi-form {
+    gap: 2.5rem;
 }
 .wifi-input-container {
     width: 60em;
@@ -323,6 +341,9 @@ form {
     padding: 0.55em;
     border-radius: var(--border-radius);
     width: 100%;
+}
+.openai-input {
+    width: auto;
 }
 form p {
     color: var(--mid-text-color);
@@ -395,7 +416,24 @@ input[type="submit"] {
     animation-name: fade-second;
 }
 
+/* FR : éléments de la page OpenAi */
+/* EN : OpenAI's page elements */
 
+.openai-logo {
+    width: 23rem;
+    display: inline;
+    color: var(--dark-text-color);
+    font-size: 3rem;
+    transform: translateY(15%);
+}
+.elevenlabs-logo {
+    width: 27rem;
+    display: inline;
+    filter: brightness(650%);
+    font-size: 3rem;
+    transform: translateY(3%);
+
+}
 /* FR : En cas d'erreur wifi */
 /* EN : In case of wifi error */
 
@@ -462,7 +500,7 @@ input[type="submit"] {
 
 @media screen and (max-width: 900px) {
     body {
-        padding-inline: calc(var(--body-padding) * 1.5);
+        padding-inline: var(--body-padding);
     }
 }
 @media screen and (max-width: 700px) {

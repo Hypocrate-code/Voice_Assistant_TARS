@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,9 @@
         <h1 class="config">| Options de Tars |</h1>
         
         <!-- MESSAGE POP UP -->
-        <!-- <p style="color: #FFF;font-size: 3.5rem;grid-area: 2/1/3/3;text-align: center;">C'est bon !</p> -->
+        {% if pop_up_message %}
+            <p style="color: #FFF;font-size: 3.5rem;grid-area: 2/1/3/3;text-align: center;">{{ pop_up_message }}</p>
+        {% endif %}
         
         <div class="onglet caractère">
             <h2>Son caractère</h2>
@@ -27,7 +29,7 @@
                 <p id="min">0%</p><input type="range" value="{{ sarcasm }}" min="0" max="100" name="sarcasme"><p id="max">100%</p>
             </div>
             <div class="slider-container">
-                <p>Bavard : 50%</p>
+                <p>Loquacité : 50%</p>
                 <p id="min">0%</p><input type="range" value="{{ talkative }}" min="0" max="100" name="bavard "><p id="max">100%</p>
             </div>
             <div class="submit-slider-btn-container">

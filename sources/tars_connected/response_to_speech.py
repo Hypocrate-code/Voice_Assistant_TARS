@@ -5,10 +5,11 @@ from threading import Thread
 import pyttsx3 as tts
 from elevenlabs import generate, play
 
+from elevenlabs import generate, play
+
 class Tars_vocal:
     def __init__(self):
         self.setup()
-        self.is_waited = 0
         self.are_generating = 0
         self.playing_queue = File()
         self.generating_queue = File()
@@ -20,7 +21,7 @@ class Tars_vocal:
         self.voice = get_voice()
         if self.voice['origin'] == "native":
             self.speaker = tts.init()
-            self.speaker.setProperty("rate", 200)
+            self.speaker.setProperty("rate", 180)
 
     def start_playing(self):
         self.playing_queue_isworking = True

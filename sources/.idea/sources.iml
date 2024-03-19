@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/python_interpreter" />
+      <excludeFolder url="file://$MODULE_DIR$/tars_connected/tests/python_interpreter" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (sources)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

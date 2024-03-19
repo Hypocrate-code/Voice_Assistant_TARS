@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tars - ElevenLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <form action="#", method="POST">
+        <h1>Configurer <img class="elevenlabs-logo" alt="Logo d'ElevenLabs" src="{{ url_for('static', filename='assets/elevenlabs/logo.png') }}"> pour Tars</h1>
+        <div>
+            <p>Votre clé API :</p>
+            <input type="text" name="api-key" class="input-text" placeholder="ex: a1B2c34e5f6ghi79j...">
+            {% if error_key %}
+                <p class="error-message">{{ error_key }}</p>
+            {% endif %}
+        </div>
+        <a href="/comment_créer_une_clé_api_elevenlabs">Comment l'obtenir ?</a>
+        <input type="submit" class="btn" value="Valider">
+    </form>
+</body>
+</html>
+
+<!-- <script src="{{ url_for('static', filename='elevenlabs.js') }}"></script> -->

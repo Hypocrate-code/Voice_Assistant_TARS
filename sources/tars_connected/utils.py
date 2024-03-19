@@ -94,3 +94,44 @@ def update_prompt_system(humour, sarcasme, lenght):
             sarcasme_word = word
     prompt_system = f"Tu es Tars, un assistant vocal,à l'humour {humour_word} et au sarcasme {sarcasme_word}.N'utilise pas plus de {round(150 + 500 * (lenght / 100))} caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
     return prompt_system
+
+class FileDAttenteParole():
+    def __init__(self):
+        contenu = []
+
+    def enfiler(self, objet):
+        self.contenu.append(objet)
+
+
+    def defiler(self):
+        if not(self.est_vide()):
+            objet = self.contenu[0]
+            self.contenu = self.contenu[1:]
+            return objet
+
+    def est_vide(self):
+        return self.taille() == 0
+    def taille(self):
+        return len(self.contenu)
+class FileDAattenteElevenlabs():
+    def __init__(self):
+        contenu = []
+
+    def enfiler(self, objet):
+        while self.est_pleine():
+            pass
+        self.contenu.append(objet)
+
+
+    def defiler(self):
+        if not(self.est_vide()):
+            objet = self.contenu[0]
+            self.contenu = self.contenu[1:]
+            return objet
+
+    def est_vide(self):
+        return self.taille() == 0
+    def est_pleine(self):
+        return self.taille() == 2
+    def taille(self):
+        return len(self.contenu)

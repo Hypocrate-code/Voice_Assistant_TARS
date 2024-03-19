@@ -5,6 +5,9 @@ import tars_connected.utils as utils
 from elevenlabs import voices
 import threading
 import json
+import sounddevice as sd
+import copy
+from openai import OpenAI, AuthenticationError
 
 app = Flask(__name__)
 app.tars_for_infos = Tars_vocal()
@@ -30,8 +33,78 @@ def config():
                            list_of_native_voices=["Voix masculine", "Voix féminine"])
 
 
+@app.route('/openai', methods=["POST", "GET"])
+def openai_page():
+    if request.method == "POST":
+        try:
+            client = OpenAI(api_key=request.form["api-key"])
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo-0125",
+                messages=[
+                    {"role": "user", "content": "Say test"}
+                ]
+            )
+            if response:
+                with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
+                    user_config = json.load(user_config_file)
+                    user_config["openai"] = request.form["api-key"]
+                    user_config_file.seek(0)
+                    json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
+                    user_config_file.truncate()
+                return redirect("/")
+        except:
+            return render_template('openai.html', error_key="La clé rentrée n'est pas valide.")
+    else:
+        return render_template('openai.html')
+
+
+@app.route('/elevenlabs', methods=["POST", "GET"])
+def elevenlabs_page():
+    openai = utils.get_api_key("openai")
+    if not (openai):
+        return redirect("/openai")
+    if request.method == "POST":
+        with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
+            user_config = json.load(user_config_file)
+            original_voice = copy.deepcopy(user_config["voice"])
+            user_config["elevenlabs"] = request.form["api-key"]
+            user_config["voice"]["origin"] = "elevenlabs"
+            user_config["voice"]["spec"] = "Nicole"
+
+            print("fdsufds2", original_voice)
+            user_config_file.seek(0)
+            json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
+            user_config_file.truncate()
+        try:
+            app.tars_for_infos.setup()
+            app.tars_for_infos.say("Configuration réussie")
+            with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
+                user_config = json.load(user_config_file)
+                user_config["voice"] = original_voice
+                user_config_file.seek(0)
+                json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
+                user_config_file.truncate()
+            return redirect("/")
+        except Exception as e:
+            print(e)
+            with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
+                user_config = json.load(user_config_file)
+                user_config["elevenlabs"] = None
+                print(original_voice)
+                user_config["voice"] = original_voice
+                user_config_file.seek(0)
+                json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
+                user_config_file.truncate()
+            return render_template('elevenlabs.html', error_key="Votre clé API est invalide.")
+    else:
+        return render_template('elevenlabs.html')
+
+
 @app.route('/wifi', methods=["POST", "GET"])
 def wifi():
+    openai = utils.get_api_key("openai")
+    if not (openai):
+        return redirect("/openai")
     if request.method == "POST":
         nom = request.form["ESSID"]
         code = request.form["password"]
@@ -62,6 +135,14 @@ def wifi():
         return render_template('wifi.html')
 
 
+@app.route("/comment_créer_une_clé_api_elevenlabs")
+def create_api_key_elevenlabs_page():
+    return render_template("create-elevenlabs-api-key.html")\
+
+@app.route("/comment_créer_une_clé_api_openai")
+def create_api_key_openai_page():
+    return render_template("create-openai-api-key.html")
+
 # USEFUL FUNCTIONS AND API CALL
 
 @app.route('/api/update_tars_spec', methods=["POST"])
@@ -77,13 +158,12 @@ def update_tars_spec():
         json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
         user_config_file.truncate()
     app.tars_for_infos.say("Personnalité de Tars mise à jour")
-    return jsonify({'message': 'Personnalité de Tars mise à jour'}) \
- \
- \
+    return jsonify({'message': 'Personnalité de Tars mise à jour'})
+
+
 @app.route('/api/update_tars_voice', methods=["POST"])
 def update_tars_voice():
     data = request.json
-    print(data)
     with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
         user_config = json.load(user_config_file)
         user_config["voice"] = data
@@ -96,6 +176,15 @@ def update_tars_voice():
     elif data["origin"] == "elevenlabs":
         app.tars_for_infos.say(f"Voix sélectionnée : {data['spec']}")
     return jsonify({'message': 'Voix de Tars mise à jour'})
+
+
+@app.route('/audio_devices', methods=["GET"])
+def get_audio_devices():
+    devices = sd.query_devices()
+    for i, device in enumerate(devices):
+        if device['hostapi'] == 0:
+            print(f"{i + 1}. {device['name']}")
+    return "s"
 
 
 def gate(nom, code):
