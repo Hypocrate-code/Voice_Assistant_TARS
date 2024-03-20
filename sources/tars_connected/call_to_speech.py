@@ -7,7 +7,7 @@ class TarsVocall:
     def __init__(self):
         self.tars_recognizer = TarsCommandRecognizer()
         self.tars_vocal = TarsSpeaker()
-        kw_path = ["tars_connected/test.ppn"]
+        kw_path = ["tars_connected/win.ppn"]
         porc = pvporcupine.create(access_key="2iyFmGQrWF1FqHFWn3yf9UIJs2tD0uGT0Tix8JgvMILfcBwTUxMKUA==", keyword_paths=kw_path, model_path="tars_connected/porcupine_params_fr.pv", sensitivities=[0.6])
         pa = pyaudio.PyAudio()
         audio = pa.open(

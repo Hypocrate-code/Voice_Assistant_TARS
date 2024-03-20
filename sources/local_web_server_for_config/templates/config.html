@@ -43,28 +43,20 @@
             <p>Choisissez les composants qui lui permettront de parler et d'écouter.</p>
             <h3>Microphone :</h3>
             <div class="chooser">
-                <button>Choisir un microphone</button>
+                <button>{{ saved_audio_devices[0] if saved_audio_devices[0] else "Choisir un microphone" }}</button>
                 <div class="scrolling-menu">
-                    <button>micro exemple</button>
-                    <button>micro exemple</button>
-                    <button>micro exemple</button>
-                    <button>micro exemple</button>
+                    {% for mic in audio_devices["mics"] %}
+                    <button>{{ mic }}</button>
+                    {% endfor %}
                 </div>
             </div>
             <h3>Haut-parleur :</h3>
             <div class="chooser">
-                <button>Choisir un haut-parleur</button>
+                <button>{{ saved_audio_devices[1] if saved_audio_devices[1] else "Choisir un haut-parleur" }}</button>
                 <div class="scrolling-menu">
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
-                    <button>haut parleur exemple</button>
+                    {% for speaker in audio_devices["speakers"] %}
+                    <button>{{ speaker }}</button>
+                    {% endfor %}
                 </div>
             </div>
         </div>

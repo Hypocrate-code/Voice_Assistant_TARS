@@ -25,7 +25,6 @@ class TarsSpeaker:
             else:
                 play(to_say)
 
-
         self.playing_queue_isworking = False
 
     def start_generating(self):

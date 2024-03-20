@@ -27,31 +27,31 @@ voiceScrollingMenus.forEach(voiceScrollingMenu=> {
                 voiceOne.classList.remove("show-tick")
                 child.classList.add('show-tick')
                 voiceScrollingMenu.parentElement.children[0].innerText = child.innerText
-		chooser_btns.forEach(btn => {
-		    if (btn != child.parentElement.parentElement.children[0]) {
-			console.log("Fait")
-		  	btn.innerText = "Choisissez la voix de Tars"
-		    }
-		})
+                chooser_btns.forEach(btn => {
+                    if (btn != child.parentElement.parentElement.children[0]) {
+                        console.log("Fait")
+                        btn.innerText = "Choisissez la voix de Tars"
+                    }
+		        })
                 voiceOne = child
-		let origin = radioBtns.filter(radioBtn=>radioBtn.checked == true)[0].getAttribute("value")
-                console.log(origin)
-		let spec;
-		if (origin == "native") {
-		    if (child.innerText == "Voix masculine") {
-			spec = "mb-fr1"
-		    }
-		    else {
-		    	spec = "mb-fr4+3"
-		    }
-		}
-		else {
-		    spec = child.innerText
-		}
-		voice = {
-                    "origin": origin,
-                    "spec": spec
+                let origin = radioBtns.filter(radioBtn=>radioBtn.checked == true)[0].getAttribute("value")
+                        console.log(origin)
+                let spec;
+                if (origin == "native") {
+                    if (child.innerText == "Voix masculine") {
+                    spec = "mb-fr1"
+                    }
+                    else {
+                        spec = "mb-fr4+3"
+                    }
                 }
+                else {
+                    spec = child.innerText
+                }
+                voice = {
+                            "origin": origin,
+                            "spec": spec
+                        }
                 fetch('/api/update_tars_voice', {
                     method: "POST",
                     headers: {
@@ -85,6 +85,14 @@ periphScrollingMenus.forEach(periphScrollingMenu => {
         child.addEventListener('click', ()=> {
             periphScrollingMenu.parentElement.children[0].innerText = child.innerText
             periphScrollingMenu .style.setProperty('display', 'none')
+            let periph = child.innerText
+            fetch('/api/update_tars_periph', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=UTF-8"
+                },
+                body: JSON.stringify(periph)
+            })
         })
     })
 })

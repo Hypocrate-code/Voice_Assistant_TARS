@@ -3,6 +3,7 @@ import json
 import os.path
 import socket
 import time
+import sounddevice as sd
 
 
 def get_ip_address():
@@ -15,7 +16,9 @@ def say_ip():
     from tars_connected.response_to_speech import TarsSpeaker
     speaker_for_ip = TarsSpeaker()
     while not (get_api_key("openai")):
-        speaker_for_ip.say(f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : { get_ip_address().replace('.', ', point, ') }", 1)
+        speaker_for_ip.say(
+            f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : {get_ip_address().replace('.', ', point, ')}, deux points 8000",
+            1)
         time.sleep(10)
 
 
@@ -43,6 +46,50 @@ class File():
     def mettre_premiere_place(self, objet):
         self.contenu.insert(0, objet)
 
+
+def get_audio_devices():
+    mics = []
+    speakers = []
+    devices = sd.query_devices()
+    with open("tars_connected/audio_devices_to_ignore.txt") as devices_to_ignore:
+        list_of_devices_to_ignore = devices_to_ignore.read().split("\n")
+        for device in devices:
+            if device["max_input_channels"] > 0 and not (device["name"] in list_of_devices_to_ignore):
+                mics.append(device["name"])
+            if device["max_output_channels"] > 0 and (not (device["name"] in list_of_devices_to_ignore) or "default" in device["name"]):
+                speakers.append(device["name"])
+    return {"mics": mics, "speakers": speakers}
+
+
+def get_saved_audio_devices():
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
+        json_read = file.read()
+        user_config_file = json.loads(json_read)
+        return user_config_file["mic"], user_config_file["speaker"]
+
+
+def set_audio_device(type_of_device, periph_name):
+    index = sd.query_devices(periph_name)["index"]
+    with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
+        user_config = json.load(user_config_file)
+        if type_of_device == "input":
+            sd.default.device = [index, sd.default.device[1]]
+            user_config["mic"] = periph_name
+        elif type_of_device == "output":
+            sd.default.device = [sd.default.device[0], index]
+            user_config["speaker"] = periph_name
+        user_config_file.seek(0)
+        json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
+        user_config_file.truncate()
+
+def set_audio_devices_on_launch():
+    with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
+        json_read = file.read()
+        user_config_file = json.loads(json_read)
+        if user_config_file["mic"]:
+            sd.default.device[0] = sd.query_devices(user_config_file["mic"])["index"]
+        elif user_config_file["speaker"]:
+            sd.default.device[1] = sd.query_devices(user_config_file["speaker"])["index"]
 
 def get_api_key(origin):
     with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:

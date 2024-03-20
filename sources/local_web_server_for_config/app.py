@@ -5,12 +5,9 @@ import tars_connected.utils as utils
 from elevenlabs import voices
 import threading
 import json
-import sounddevice as sd
 import copy
 from openai import OpenAI, AuthenticationError
-
-global is_on_web_server
-is_on_web_server = False
+import sounddevice as sd
 
 app = Flask(__name__)
 app.tars_for_infos = TarsSpeaker()
@@ -22,9 +19,8 @@ is_connected = None
 @app.route('/', methods=["POST", "GET"])
 @app.route('/config', methods=["POST", "GET"])
 def config():
-    is_on_web_server = True
     openai = utils.get_api_key("openai")
-    if not (openai):
+    if not openai:
         return redirect("/openai")
     personality = utils.get_personality()
     voice = utils.get_voice()
@@ -34,15 +30,15 @@ def config():
     else:
         label = voice["spec"]
     return render_template("config.html", humor=personality['humor'], sarcasm=personality["sarcasm"],
-                           talkative=personality["lenght of response"], wifi_status=wifi_status, voice=voice["origin"],
-                           voice_name=label, is_elevenlabs=not (utils.get_api_key("elevenlabs") == None),
+                           talkative=personality["lenght of response"], wifi_status=wifi_status, audio_devices=utils.get_audio_devices(),
+                           saved_audio_devices = utils.get_saved_audio_devices(), voice=voice["origin"],
+                           voice_name=label, is_elevenlabs=not (utils.get_api_key("elevenlabs") is None),
                            list_of_elevenlabs_voices=voices(),
                            list_of_native_voices=["Voix masculine", "Voix féminine"])
 
 
 @app.route('/openai', methods=["POST", "GET"])
 def openai_page():
-    is_on_web_server = True
     if request.method == "POST":
         try:
             client = OpenAI(api_key=request.form["api-key"])
@@ -186,13 +182,13 @@ def update_tars_voice():
     return jsonify({'message': 'Voix de Tars mise à jour'})
 
 
-@app.route('/audio_devices', methods=["GET"])
-def get_audio_devices():
-    devices = sd.query_devices()
-    for i, device in enumerate(devices):
-        if device['hostapi'] == 0:
-            print(f"{i + 1}. {device['name']}")
-    return "s"
+@app.route('/api/update_tars_periph', methods=["POST"])
+def update_audio_devices():
+    periph = request.json
+    type_of_device = "input" if sd.query_devices(periph)["max_input_channels"] > 0 else "output"
+    utils.set_audio_device(type_of_device, periph)
+    print(periph)
+    return "Periphérique mis à jour."
 
 
 def gate(nom, code):
