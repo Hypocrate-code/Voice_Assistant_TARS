@@ -12,12 +12,11 @@ def get_ip_address():
 
 
 def say_ip():
-    from local_web_server_for_config.app import is_on_web_server
     from tars_connected.response_to_speech import TarsSpeaker
     speaker_for_ip = TarsSpeaker()
-    while not (is_on_web_server):
+    while not (get_api_key("openai")):
         speaker_for_ip.say(f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : { get_ip_address().replace('.', ', point, ') }", 1)
-        time.sleep(7)
+        time.sleep(10)
 
 
 class File():
@@ -59,11 +58,11 @@ def get_voice():
         return user_config_file["voice"]
 
 
-def get_voice_spec():
+def get_personality():
     with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
         json_read = file.read()
         user_config_file = json.loads(json_read)
-        return user_config_file["tars voice spec"]
+        return user_config_file["tars personality"]
 
 
 def get_wifi_status():
@@ -109,5 +108,5 @@ def update_prompt_system(humour, sarcasme, lenght):
             humour_word = word
         if int(liste_range[0]) <= sarcasme <= int(liste_range[1]):
             sarcasme_word = word
-    prompt_system = f"Tu es Tars, un assistant vocal,à l'humour {humour_word} et au sarcasme {sarcasme_word}.N'utilise pas plus de {round(150 + 500 * (lenght / 100))} caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
+    prompt_system = f"Tu es Tarsse, un assistant vocal,à l'humour {humour_word} et au sarcasme {sarcasme_word}.N'utilise pas plus de {round(150 + 500 * (lenght / 100))} caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
     return prompt_system

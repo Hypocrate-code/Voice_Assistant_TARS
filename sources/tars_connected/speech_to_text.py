@@ -1,7 +1,6 @@
 import speech_recognition
 from tars_connected.text_to_response import TarsAnswering
 # from neuralintents.assistants import BasicAssistant
-import winsound
 
 
 class TarsCommandRecognizer:
@@ -23,7 +22,7 @@ class TarsCommandRecognizer:
                 print(text)
                 self.tars_answerer.answer(text)
             except speech_recognition.RequestError:
-                pass
+                print("wtf request error")
 
             except speech_recognition.UnknownValueError as e:
-                winsound.Beep(440, 700)
+                print("No comprendo")

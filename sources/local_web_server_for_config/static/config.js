@@ -7,6 +7,7 @@ const radioBtns = Array.from(document.querySelectorAll('input[type="radio"]'))
 const fieldset = document.querySelector("fieldset")
 
 const choosers = document.querySelectorAll('.chooser')
+const chooser_btns = document.querySelectorAll(".voix .chooser > button")
 const periphScrollingMenus = document.querySelectorAll('.périphériques .scrolling-menu')
 const voiceScrollingMenus = document.querySelectorAll('.voix .scrolling-menu')
 let voiceOne = document.querySelector(".show-tick")
@@ -26,10 +27,30 @@ voiceScrollingMenus.forEach(voiceScrollingMenu=> {
                 voiceOne.classList.remove("show-tick")
                 child.classList.add('show-tick')
                 voiceScrollingMenu.parentElement.children[0].innerText = child.innerText
+		chooser_btns.forEach(btn => {
+		    if (btn != child.parentElement.parentElement.children[0]) {
+			console.log("Fait")
+		  	btn.innerText = "Choisissez la voix de Tars"
+		    }
+		})
                 voiceOne = child
-                voice = {
-                    "origin": radioBtns.filter(radioBtn=>radioBtn.checked == true)[0].getAttribute("value"),
-                    "spec": child.innerText
+		let origin = radioBtns.filter(radioBtn=>radioBtn.checked == true)[0].getAttribute("value")
+                console.log(origin)
+		let spec;
+		if (origin == "native") {
+		    if (child.innerText == "Voix masculine") {
+			spec = "mb-fr1"
+		    }
+		    else {
+		    	spec = "mb-fr4+3"
+		    }
+		}
+		else {
+		    spec = child.innerText
+		}
+		voice = {
+                    "origin": origin,
+                    "spec": spec
                 }
                 fetch('/api/update_tars_voice', {
                     method: "POST",
@@ -78,7 +99,7 @@ apply_personnality_btn.addEventListener('click',()=> {
             "sarcasm": parseInt(slider_values[1]),
             "lenght of response": parseInt(slider_values[2])
         }
-        fetch('/api/update_tars_spec', {
+        fetch('/api/update_tars_personality', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"

@@ -22,16 +22,20 @@ is_connected = None
 @app.route('/', methods=["POST", "GET"])
 @app.route('/config', methods=["POST", "GET"])
 def config():
+    is_on_web_server = True
     openai = utils.get_api_key("openai")
     if not (openai):
         return redirect("/openai")
-    voice_spec = utils.get_voice_spec()
+    personality = utils.get_personality()
     voice = utils.get_voice()
     wifi_status = utils.get_wifi_status()
-    print(voice)
-    return render_template("config.html", humor=voice_spec['humor'], sarcasm=voice_spec["sarcasm"],
-                           talkative=voice_spec["lenght of response"], wifi_status=wifi_status, voice=voice["origin"],
-                           voice_type=voice["spec"], is_elevenlabs=not (utils.get_api_key("elevenlabs") == None),
+    if voice["origin"] == "native":
+        label = "Voix masculine" if voice["spec"] == "mb-fr1" else "Voix féminine"
+    else:
+        label = voice["spec"]
+    return render_template("config.html", humor=personality['humor'], sarcasm=personality["sarcasm"],
+                           talkative=personality["lenght of response"], wifi_status=wifi_status, voice=voice["origin"],
+                           voice_name=label, is_elevenlabs=not (utils.get_api_key("elevenlabs") == None),
                            list_of_elevenlabs_voices=voices(),
                            list_of_native_voices=["Voix masculine", "Voix féminine"])
 
@@ -81,7 +85,7 @@ def elevenlabs_page():
             user_config_file.truncate()
         try:
             app.tars_for_infos.setup()
-            app.tars_for_infos.say("Configuration réussie")
+            app.tars_for_infos.say("Configuration réussie.")
             with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
                 user_config = json.load(user_config_file)
                 user_config["voice"] = original_voice
@@ -149,19 +153,19 @@ def create_api_key_openai_page():
 
 # USEFUL FUNCTIONS AND API CALL
 
-@app.route('/api/update_tars_spec', methods=["POST"])
+@app.route('/api/update_tars_personality', methods=["POST"])
 def update_tars_spec():
     data = request.json
     print(data)
     with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
         user_config = json.load(user_config_file)
-        user_config["tars voice spec"] = data
+        user_config["tars personality"] = data
         user_config["prompt_system"] = utils.update_prompt_system(data["humor"], data["sarcasm"],
                                                                   data["lenght of response"])
         user_config_file.seek(0)
         json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
         user_config_file.truncate()
-    app.tars_for_infos.say("Personnalité de Tars mise à jour")
+    app.tars_for_infos.say("Personnalité de Tarsse mise à jour", 1)
     return jsonify({'message': 'Personnalité de Tars mise à jour'})
 
 
@@ -176,9 +180,9 @@ def update_tars_voice():
         user_config_file.truncate()
     app.tars_for_infos.setup()
     if data["origin"] == "native":
-        app.tars_for_infos.say("Ma voix est mise à jour")
+        app.tars_for_infos.say("Ma voix est mise à jour", 1)
     elif data["origin"] == "elevenlabs":
-        app.tars_for_infos.say(f"Voix sélectionnée : {data['spec']}")
+        app.tars_for_infos.say(f"Voix sélectionnée : {data['spec']}", 1)
     return jsonify({'message': 'Voix de Tars mise à jour'})
 
 

@@ -18,14 +18,13 @@ class TarsSpeaker:
 
     def start_playing(self):
         self.playing_queue_isworking = True
+        while not self.playing_queue.est_vide():
+            to_say = self.playing_queue.defiler()
+            if type(to_say) == type("exemple"):
+                subprocess.call(["espeak", "-v", self.voice["spec"], '-s', '140', to_say])
+            else:
+                play(to_say)
 
-        if self.voice["origin"] == "elevenlabs":
-            while not self.playing_queue.est_vide():
-                play(self.playing_queue.defiler())
-
-        elif self.voice["origin"] == "native":
-            while not self.playing_queue.est_vide():
-                subprocess.call(["espeak", "-v", self.voice["spec"], '-s', '160', self.playing_queue.defiler()])
 
         self.playing_queue_isworking = False
 
@@ -68,6 +67,7 @@ class TarsSpeaker:
 
             elif priority == 1:
                 audio = self.generate_audio(text)
+                print("audio")
                 self.playing_queue.mettre_premiere_place(audio)
                 if not self.playing_queue_isworking:
                     self.start_playing()
