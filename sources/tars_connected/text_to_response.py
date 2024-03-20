@@ -30,62 +30,30 @@ class Tars_answering:
                 stream=True,
             )
 
+            response = ""
 
-            
+            for chunk in stream:
+                if chunk.choices[0].delta.content != None and chunk.choices[0].delta.content != "":
+                    response += chunk.choices[0].delta.content
 
-            nombre_de_mots_voulus = 0                   # 0 --> Phrase par phrase       # x --> x mots par x mots
+                    for i, car in enumerate(response):
 
+                        if car == " " and response[i-1] == ".":
+                            print(response[:(i+1)])
+                            if get_voice()["origin"] == "elevenlabs":
+                                Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,)).start()
+                            elif get_voice()["origin"] == "native":
+                                self.tars_vocal.say(response[:(i+1)], 2,)
+                            response = response[(i+1):]
 
+            if response != "" and response != " ":
+                print(response)
 
+                if get_voice()["origin"] == "elevenlabs":
+                    Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,)).start()
 
-            if nombre_de_mots_voulus > 0:
-                response = ""
-
-                for chunk in stream:
-                    if chunk.choices[0].delta.content != None and chunk.choices[0].delta.content != "":
-                        response += chunk.choices[0].delta.content
-
-                        nb_spaces = 0
-                        for i, car in enumerate(response):
-
-                            if car == " ":
-                                nb_spaces += 1
-
-                                if nb_spaces >= 9:
-                                    thread = Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,))
-                                    thread.start()
-                                    print(response[:(i+1)])
-                                    response = response[(i+1):]
-                                    break
-
-
-                if response != "" and response != " ":
-                    thread = Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,))
-                    thread.start()
-                    print(response)
-
-
-
-
-
-            else:
-                response = ""
-
-                for chunk in stream:
-                    if chunk.choices[0].delta.content != None and chunk.choices[0].delta.content != "":
-                        response += chunk.choices[0].delta.content
-
-                        for i, car in enumerate(response):
-                            if car == " " and response[i-1] == ".":
-                                thread = Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,))
-                                thread.start()
-                                print(response[:(i+1)])
-                                response = response[(i+1):]
-
-                if response != "" and response != " ":
-                    thread = Thread(target=self.tars_vocal.say, args=(response[:(i+1)], 2,))
-                    thread.start()
-                    print(response)
+                elif get_voice()["origin"] == "native":
+                    self.tars_vocal.say(response[:(i+1)], 2,)
 
 
 
@@ -97,8 +65,8 @@ class Tars_answering:
         
         # Test pour l'interruption
         from time import sleep
-        sleep(15)
+        sleep(10)
         Thread(target=self.tars_vocal.say, args=("La voix de TARS a été changée", 1,)).start()
 
 Bot = Tars_answering()
-Bot.answer("En 6 phrases, peux tu me donner ton pronostique pour ma note de philosophie par rapport à l'examen de ce matin, et pourquoi ?")
+Bot.answer("En 6 phrases, peux tu me dire quand Olivier Serra a découvert l'Amérique et pourquoi ?")

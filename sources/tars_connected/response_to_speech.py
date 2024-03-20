@@ -1,6 +1,7 @@
 from utils import File, get_voice, get_api_key
 
 from threading import Thread
+from time import sleep
 
 import pyttsx3 as tts
 from elevenlabs import generate, play
@@ -16,21 +17,33 @@ class Tars_vocal:
         self.playing_queue_isworking = False
         self.generating_isworking = False
 
-
     def setup(self):
         self.voice = get_voice()
         if self.voice['origin'] == "native":
-            self.speaker = tts.init()
+            self.speaker = tts.init(debug=True)
             self.speaker.setProperty("rate", 180)
+
+
 
     def start_playing(self):
         self.playing_queue_isworking = True
 
-        while not self.playing_queue.est_vide():
-            play(self.playing_queue.defiler())
+        if self.voice["origin"] == "elevenlabs":
+            while not self.playing_queue.est_vide():
+                play(self.playing_queue.defiler())
+
+        elif self.voice["origin"] == "native":
+
+            while not self.playing_queue.est_vide():
+                if self.speaker._inLoop:
+                    self.speaker.endLoop()
+                self.speaker.say(self.playing_queue.defiler())
+                self.speaker.runAndWait()
 
         self.playing_queue_isworking = False
     
+
+
     def start_generating(self):
         self.generating_isworking = True
 
@@ -73,14 +86,21 @@ class Tars_vocal:
                 self.playing_queue.mettre_premiere_place(audio)
                 if not self.playing_queue_isworking:
                     self.start_playing()
-                
-
-
-
 
 
         elif self.voice['origin'] == "native":
-            if self.speaker._inLoop:
-                self.speaker.endLoop()
-            self.speaker.say(text)
-            self.speaker.runAndWait()
+            
+            # if self.speaker._inLoop:
+            #     self.speaker.endLoop()
+            # self.speaker.say(text)
+            # self.speaker.runAndWait()
+
+            if priority == 2:
+                self.playing_queue.enfiler(text)
+                if not self.playing_queue_isworking:
+                    self.start_playing()
+            
+            elif priority == 1:
+                self.playing_queue.mettre_premiere_place(text)
+                if not self.playing_queue_isworking:
+                    self.start_playing()
