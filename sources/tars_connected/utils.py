@@ -2,7 +2,12 @@
 
 import json
 import os.path
+import socket
 
+def get_ip_address():
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    return ip_address
 
 def get_api_key(origin):
     with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:

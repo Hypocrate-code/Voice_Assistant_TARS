@@ -1,13 +1,7 @@
 import speech_recognition
 from tars_connected.text_to_response import Tars_answering
 # from neuralintents.assistants import BasicAssistant
-
-
-def reponse_a_la_question(text):
-    print("> On a appelé reponse_a_la_question")
-    return
-    # reponse_a_la_question(text) est une fonction provisoire, qui devra être remplacée par un text to response
-
+import winsound
 
 class Tars_command_recognizer:
     def __init__(self):
@@ -16,13 +10,12 @@ class Tars_command_recognizer:
         # self.assistant.save_model()
         self.tars_answerer = Tars_answering()
         self.recognizer = speech_recognition.Recognizer()  # Initialiser Speech Recognition
+        with speech_recognition.Microphone() as mic:  # Avec le microphone par défaut
+            self.recognizer.adjust_for_ambient_noise(mic, duration=.5)
 
     def recognize(self):
         with speech_recognition.Microphone() as mic:  # Avec le microphone par défaut
-
-            self.recognizer.adjust_for_ambient_noise(mic, duration=2)
-            # emit sound
-            print("Parlez...")
+            self.recognizer.adjust_for_ambient_noise(mic, duration=.5)
             try:
                 audio = self.recognizer.listen(mic)
                 text = self.recognizer.recognize_google(audio, language="fr-FR")
@@ -55,13 +48,7 @@ class Tars_command_recognizer:
                 pass
 
             except speech_recognition.UnknownValueError as e:
-                print(e)
-                print(">>>> Pardon, je n'ai pas compris")  # emit sound
-                pass
-
-
-bot = Tars_command_recognizer()
-bot.recognize()
+                winsound.Beep(440, 700)
 
 # client = OpenAI()
 #
