@@ -1,9 +1,9 @@
 {
-  "openai": "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",
-  "elevenlabs": "22fa06e2c15e0c1e8c3e88a2141337d1",
+  "openai":null,
+  "elevenlabs": "a38781c8367a6636196b0b0dc3e18d5d",
   "voice": {
     "origin": "native",
-    "spec": "Voix masculine"
+    "spec": "mb-fr1"
   },
   "wifi_configured": false,
   "tars voice spec": {

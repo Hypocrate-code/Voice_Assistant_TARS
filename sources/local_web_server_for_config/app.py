@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify
 from local_web_server_for_config.wifi_connexion import connect_to_wifi
-from tars_connected.response_to_speech import Tars_vocal
+from tars_connected.response_to_speech import TarsSpeaker
 import tars_connected.utils as utils
 from elevenlabs import voices
 import threading
@@ -9,8 +9,11 @@ import sounddevice as sd
 import copy
 from openai import OpenAI, AuthenticationError
 
+global is_on_web_server
+is_on_web_server = False
+
 app = Flask(__name__)
-app.tars_for_infos = Tars_vocal()
+app.tars_for_infos = TarsSpeaker()
 is_connected = None
 
 
@@ -35,6 +38,7 @@ def config():
 
 @app.route('/openai', methods=["POST", "GET"])
 def openai_page():
+    is_on_web_server = True
     if request.method == "POST":
         try:
             client = OpenAI(api_key=request.form["api-key"])
