@@ -2,6 +2,7 @@ import pvporcupine
 import pyaudio
 import struct
 from tars_connected.speech_to_text import TarsCommandRecognizer
+from tars_connected.utils import high_bip
 from tars_connected.response_to_speech import TarsSpeaker
 class TarsVocall:
     def __init__(self):
@@ -23,4 +24,5 @@ class TarsVocall:
             keyword_index = porc.process(pcm)
             if keyword_index >= 0:
                 print("Parlez...")
+                # high_bip()
                 self.tars_recognizer.recognize()

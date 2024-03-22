@@ -1,4 +1,3 @@
-from tars_connected.response_to_speech import TarsSpeaker
 from tars_connected.utils import get_api_key, get_prompt_system, get_voice
 from tars_connected.errors_response import api_key_invalid
 from local_web_server_for_config.app import app

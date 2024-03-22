@@ -4,15 +4,16 @@ import os.path
 import socket
 import time
 import sounddevice as sd
-
-
+import os
+def make_sound(sound_file):
+    os.system(f"aplay {sound_file}")
 def get_ip_address():
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
     return ip_address
 
 
-def say_ip():
+def say_ip(tars):
     from tars_connected.response_to_speech import TarsSpeaker
     speaker_for_ip = TarsSpeaker()
     while not (get_api_key("openai")):
@@ -20,6 +21,7 @@ def say_ip():
             f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : {get_ip_address().replace('.', ', point, ')}, deux points 8000",
             1)
         time.sleep(10)
+    tars.launch_tars()
 
 
 class File():

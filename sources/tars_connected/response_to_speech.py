@@ -21,7 +21,7 @@ class TarsSpeaker:
         while not self.playing_queue.est_vide():
             to_say = self.playing_queue.defiler()
             if type(to_say) == type("exemple"):
-                subprocess.call(["espeak", "-v", self.voice["spec"], '-s', '140', to_say])
+                subprocess.call(["espeak", "-v", self.voice["spec"], '-s', '120', to_say])
             else:
                 play(to_say)
 

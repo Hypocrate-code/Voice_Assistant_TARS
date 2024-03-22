@@ -1,0 +1,24 @@
+{
+  "my_function": {
+    "patterns" : [
+      "comment puis-je te configurer",
+      "comment se connecter sur ta",
+      "comment se connecter sur ton",
+      "comment me connecter sur ta",
+      "comment puis-je connecter sur ta",
+      "comment me connecter sur ton",
+      "comment puis-je connecter sur ton",
+      "comment me connecter sur ton"
+    ],
+    "name of function": "how_to_access"
+  },
+
+  "second" : {
+    "patterns" : [
+      "quel est ton ip",
+      "ton adresse ip",
+      "top ip"
+    ],
+    "name of function": "give_ip_address"
+  }
+}
