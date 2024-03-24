@@ -1,0 +1,3 @@
+sysdefault
+pipewire
+dmix

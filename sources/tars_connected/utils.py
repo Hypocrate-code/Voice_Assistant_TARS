@@ -1,16 +1,19 @@
 # Useful functions across the project
 import json
-import os.path
 import socket
+from urllib.request import urlopen
 import time
 import sounddevice as sd
 import os
 def make_sound(sound_file):
-    os.system(f"aplay {sound_file}")
+    os.system(f"aplay tars_connected/{sound_file}")
 def get_ip_address():
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    return ip_address
+    google = "8.8.8.8"
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect((google, 0))
+    addrIP = s.getsockname()[0]
+    print(addrIP)
+    return addrIP.replace('.',', point, ') + ", deux points 8000"
 
 
 def say_ip(tars):
