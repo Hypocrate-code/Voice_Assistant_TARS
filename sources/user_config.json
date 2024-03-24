@@ -1,6 +1,6 @@
 {
-  "openai": "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",
-  "elevenlabs": "a38781c8367a6636196b0b0dc3e18d5d",
+  "openai": "",
+  "elevenlabs": "",
   "voice": {
     "origin": "elevenlabs",
     "spec": "Drew"
