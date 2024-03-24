@@ -1,17 +1,17 @@
 {
-  "openai": "null",
+  "openai": "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",
   "elevenlabs": null,
   "voice": {
     "origin": "native",
-    "spec": "mb-fr4+3"
+    "spec": "mb-fr1"
   },
   "wifi_configured": false,
   "tars personality": {
-    "humor": 62,
-    "sarcasm": 48,
-    "lenght of response": 78
+    "humor": 0,
+    "sarcasm": 0,
+    "lenght of response": 0
   },
-  "speaker": null,
-  "mic": null,
-  "prompt_system": "Tu es Tarsse, un assistant vocal,à l'humour conséquent et au sarcasme notable.N'utilise pas plus de 540 caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
+  "speaker": "",
+  "mic": "default",
+  "prompt_system": "Tu es Tarsse, un assistant vocal,à l'humour quasi inexistant et au sarcasme quasi inexistant.N'utilise pas plus de 150 caractères,tu écris les nombres en lettre,pas en chiffre.Ne dis pas que tu es chat gpt."
 }

@@ -43,7 +43,7 @@
             <p>Choisissez les composants qui lui permettront de parler et d'écouter.</p>
             <h3>Microphone :</h3>
             <div class="chooser">
-                <button>{{ saved_audio_devices[0] if saved_audio_devices[0] else "Choisir un microphone" }}</button>
+                <button>{{ saved_audio_devices[0] }}</button>
                 <div class="scrolling-menu">
                     {% for mic in audio_devices["mics"] %}
                     <button>{{ mic }}</button>
@@ -52,7 +52,7 @@
             </div>
             <h3>Haut-parleur :</h3>
             <div class="chooser">
-                <button>{{ saved_audio_devices[1] if saved_audio_devices[1] else "Choisir un haut-parleur" }}</button>
+                <button>{{ saved_audio_devices[1] }}</button>
                 <div class="scrolling-menu">
                     {% for speaker in audio_devices["speakers"] %}
                     <button>{{ speaker }}</button>

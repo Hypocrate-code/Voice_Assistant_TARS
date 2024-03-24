@@ -12,15 +12,19 @@ class TarsCommandRecognizer:
 
     def recognize(self):
         with speech_recognition.Microphone() as mic:  # Avec le microphone par défaut
-            self.recognizer.adjust_for_ambient_noise(mic, duration=.5)
+            self.recognizer.adjust_for_ambient_noise(mic, duration=.2)
             try:
+                while not self.tars_answerer.tars_vocal.playing_queue.est_vide():
+                    self.tars_answerer.tars_vocal.playing_queue.defiler()
+                make_sound("high_bip.wav")
                 audio = self.recognizer.listen(mic)
+                make_sound('end_bip.wav')
                 text = self.recognizer.recognize_google(audio, language="fr-FR")
+                print(text)
                 if not self.function_recognizer.recognize_functions(text.lower()):
-                    make_sound("tars_connected/high_bip.mov")
                     self.tars_answerer.answer(text)
             except speech_recognition.RequestError:
-                make_sound("tars_connected/bug_bip.m4a")
+                make_sound("bug_bip.wav")
 
             except speech_recognition.UnknownValueError as e:
-                make_sound("tars_connected/bug_bip.m4a")
+                make_sound("bug_bip.wav")
