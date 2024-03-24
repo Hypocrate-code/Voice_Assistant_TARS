@@ -1,7 +1,8 @@
 import subprocess
 from tars_connected.utils import File, get_voice, get_api_key
+from tars_connected.errors_response import api_key_invalid
 from threading import Thread
-from elevenlabs import generate, play
+from elevenlabs import generate, play, RateLimitError
 
 
 class TarsSpeaker:
@@ -41,21 +42,27 @@ class TarsSpeaker:
 
     def generate_audio(self, text):
         while True:
-
             if self.are_generating < 2:
                 self.are_generating += 1
-
-                audio = generate(
-                    text=text,
-                    model="eleven_multilingual_v1",
-                    voice=self.voice["spec"],
-                    api_key=get_api_key("elevenlabs")
-                )
-
-                self.are_generating -= 1
-
-                return audio
-
+                try:
+                    audio = generate(
+                        text=text,
+                        model="eleven_multilingual_v1",
+                        voice=self.voice["spec"],
+                        api_key=get_api_key("elevenlabs")
+                    )
+                    self.are_generating -= 1
+                    return audio
+                except RateLimitError:
+                    print("wtf")
+                    while not self.generating_queue.est_vide():
+                        print("défilement...")
+                        self.generating_queue.defiler()
+                    text = "Votre compte Elevenlabs n'a plus assez de caractères pour générer la phrase demandée, retour à la voix native. Rendez vous sur votre panneau de configuration pour plus d'infos."
+                    api_key_invalid("elevenlabs", self, text=text)
+                    break
+                except Exception as e:
+                    api_key_invalid("elevenlabs", self)
     def say(self, text, priority):
         if self.voice['origin'] == "elevenlabs":
 
@@ -66,7 +73,6 @@ class TarsSpeaker:
 
             elif priority == 1:
                 audio = self.generate_audio(text)
-                print("audio")
                 self.playing_queue.mettre_premiere_place(audio)
                 if not self.playing_queue_isworking:
                     self.start_playing()

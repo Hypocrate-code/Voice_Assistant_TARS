@@ -1,5 +1,5 @@
 {
-  "my_function": {
+  "how_to_conf": {
     "patterns" : [
       "puis-je te configurer",
       "me connecter à toi",
@@ -13,7 +13,7 @@
     ],
     "name of function": "how_to_access"
   },
-    "stop_function": {
+  "stop": {
     "patterns" : [
       "tais-toi",
       "tais toi",
@@ -22,12 +22,24 @@
     ],
     "name of function": "stop"
   },
-  "second" : {
+  "ip" : {
     "patterns" : [
       "quel est ton ip",
       "ton adresse ip",
       "ton ip"
     ],
     "name of function": "give_ip_address"
+  },
+  "time" : {
+    "patterns": [
+      "quelle heure est-il",
+      "quel jour on est",
+      "on est quel jour",
+      "la date d'aujourd'hui",
+      "quelle heure est il",
+      "quelle heure il est",
+      "il est quelle heure"
+    ],
+    "name of function": "what_time"
   }
 }

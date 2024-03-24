@@ -74,14 +74,12 @@ def elevenlabs_page():
             user_config["elevenlabs"] = request.form["api-key"]
             user_config["voice"]["origin"] = "elevenlabs"
             user_config["voice"]["spec"] = "Nicole"
-
-            print("fdsufds2", original_voice)
             user_config_file.seek(0)
             json.dump(user_config, user_config_file, indent=2, ensure_ascii=False)
             user_config_file.truncate()
         try:
             app.tars_for_infos.setup()
-            app.tars_for_infos.say("Configuration réussie.")
+            app.tars_for_infos.say("Configuration réussie.", 1)
             with open('user_config.json', 'r+', encoding='utf-8') as user_config_file:
                 user_config = json.load(user_config_file)
                 user_config["voice"] = original_voice

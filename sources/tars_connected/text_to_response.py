@@ -46,4 +46,4 @@ class TarsAnswering:
             Thread(target=self.tars_vocal.say, args=(total,2,))
 
         except AuthenticationError:
-            api_key_invalid("openai")
+            api_key_invalid("openai", self.tars_vocal)

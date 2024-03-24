@@ -12,8 +12,10 @@ class Tars:
 if __name__ == '__main__':
     tars = Tars()
     set_audio_devices_on_launch()
-    make_sound("end_bip.wav")
-    make_sound("end_bip.wav")
+    try:
+        make_sound("start_bip.wav")
+    except:
+        print("pas de start sound")
     if get_api_key("openai"):
         tars_thread = threading.Thread(target=tars.launch_tars)
         tars_thread.start()

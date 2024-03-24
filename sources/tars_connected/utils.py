@@ -6,6 +6,7 @@ import time
 import sounddevice as sd
 import os
 def make_sound(sound_file):
+    print(sound_file)
     os.system(f"aplay tars_connected/{sound_file}")
 def get_ip_address():
     google = "8.8.8.8"
@@ -21,7 +22,7 @@ def say_ip(tars):
     speaker_for_ip = TarsSpeaker()
     while not (get_api_key("openai")):
         speaker_for_ip.say(
-            f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : {get_ip_address().replace('.', ', point, ')}, deux points 8000",
+            f"Veuillez vous rendre via un navigateur connecté sur le même réseau à l'adresse web suivante : {get_ip_address()}",
             1)
         time.sleep(10)
     tars.launch_tars()
@@ -61,7 +62,7 @@ def get_audio_devices():
         for device in devices:
             if device["max_input_channels"] > 0 and not (device["name"] in list_of_devices_to_ignore):
                 mics.append(device["name"])
-            if device["max_output_channels"] > 0 and (not (device["name"] in list_of_devices_to_ignore) or "default" in device["name"]):
+            if device["max_output_channels"] > 0 and not (device["name"] in list_of_devices_to_ignore):
                 speakers.append(device["name"])
     return {"mics": mics, "speakers": speakers}
 
@@ -92,9 +93,11 @@ def set_audio_devices_on_launch():
         json_read = file.read()
         user_config_file = json.loads(json_read)
         if user_config_file["mic"]:
-            sd.default.device[0] = sd.query_devices(user_config_file["mic"])["index"]
+            pass
+            # sd.default.device[0] = sd.query_devices(user_config_file["mic"])["index"]
         elif user_config_file["speaker"]:
-            sd.default.device[1] = sd.query_devices(user_config_file["speaker"])["index"]
+            pass
+            # sd.default.device[1] = sd.query_devices(user_config_file["speaker"])["index"]
 
 def get_api_key(origin):
     with open(os.path.dirname(__file__) + "/../user_config.json", encoding='utf-8') as file:
